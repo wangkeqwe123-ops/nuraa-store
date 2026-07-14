@@ -1,0 +1,2 @@
+import Link from "next/link"; import type { RangeKey } from "@/features/analytics/dashboard.service";
+export function RangeTabs({range,path}:{range:RangeKey;path:string}){return <div className="inline-flex rounded-lg border bg-white p-1">{[["today","Today"],["7d","7 Days"],["30d","30 Days"]].map(([key,label])=><Link key={key} href={`${path}?range=${key}`} className={`rounded-md px-3 py-1.5 text-xs font-medium transition ${range===key?"bg-[#12372a] text-white":"text-muted-foreground hover:text-foreground"}`}>{label}</Link>)}</div>}

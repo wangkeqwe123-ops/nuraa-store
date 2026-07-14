@@ -1,0 +1,3 @@
+import { requireAdmin } from "@/lib/auth"; import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"; import { AdminSidebar } from "@/components/admin/admin-sidebar"; import { AdminTopbar } from "@/components/admin/admin-topbar";
+export const dynamic="force-dynamic";
+export default async function AdminLayout({children}:{children:React.ReactNode}){const admin=await requireAdmin();return <SidebarProvider><AdminSidebar/><SidebarInset className="min-h-screen bg-[#f8f5ef]"><AdminTopbar email={admin.email}/><main className="flex-1 p-5 lg:p-8">{children}</main></SidebarInset></SidebarProvider>}

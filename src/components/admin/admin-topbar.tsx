@@ -1,0 +1,8 @@
+import { Search, LogOut } from "lucide-react";
+import { SidebarTrigger } from "@/components/ui/sidebar";
+import { Input } from "@/components/ui/input";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { logoutAction } from "@/app/admin/actions";
+
+export function AdminTopbar({email}:{email:string}){return <header className="sticky top-0 z-20 flex h-16 items-center gap-4 border-b bg-[#f8f5ef]/90 px-5 backdrop-blur-xl lg:px-8"><SidebarTrigger className="text-[#12372a]"/><div className="relative hidden max-w-sm flex-1 md:block"><Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground"/><Input className="h-9 border-transparent bg-white pl-9 shadow-none focus-visible:border-[#12372a]/20" placeholder="Search products, orders, customers…"/></div><div className="ml-auto"><DropdownMenu><DropdownMenuTrigger className="flex items-center gap-2 rounded-lg p-1.5 text-left hover:bg-white"><Avatar className="size-8"><AvatarFallback className="bg-[#12372a] text-xs text-white">NA</AvatarFallback></Avatar><div className="hidden md:block"><p className="text-xs font-medium">Nuraa Admin</p><p className="text-[10px] text-muted-foreground">{email}</p></div></DropdownMenuTrigger><DropdownMenuContent align="end" className="w-56"><DropdownMenuLabel>Admin account</DropdownMenuLabel><DropdownMenuSeparator/><form action={logoutAction}><DropdownMenuItem render={<button className="w-full" type="submit"/>}><LogOut/>Sign out</DropdownMenuItem></form></DropdownMenuContent></DropdownMenu></div></header>}

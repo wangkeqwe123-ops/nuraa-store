@@ -1,0 +1,3 @@
+import { redirect } from "next/navigation"; import { getAdmin } from "@/lib/auth"; import { LoginForm } from "./login-form";
+export const dynamic="force-dynamic";
+export default async function AdminLogin(){if(await getAdmin())redirect("/admin/products");return <main className="flex min-h-screen items-center justify-center bg-[#f3f1ec] px-5"><section className="w-full max-w-md rounded-3xl bg-white p-8 shadow-[0_20px_60px_rgba(24,52,45,.1)]"><div className="font-display text-3xl font-semibold tracking-[.16em] text-[#18342d]">NURAA</div><h1 className="mt-8 text-2xl font-semibold text-slate-900">管理员登录</h1><p className="mt-2 text-sm text-slate-500">登录后管理商品、库存和上架状态。</p><LoginForm/></section></main>}

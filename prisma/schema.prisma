@@ -1,0 +1,255 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Locale {
+  EN
+  AR
+}
+
+enum ProductStatus {
+  DRAFT
+  ACTIVE
+  ARCHIVED
+}
+
+enum ProductMediaType {
+  MAIN_IMAGE
+  DETAIL_IMAGE
+  VIDEO
+}
+
+enum AnalyticsEventType {
+  PAGE_VIEW
+  PRODUCT_VIEW
+  ADD_TO_CART
+  CHECKOUT_START
+  PURCHASE
+}
+
+enum TrafficChannel {
+  TIKTOK
+  FACEBOOK
+  GOOGLE
+  DIRECT
+  OTHER
+}
+
+enum HomepageMediaType {
+  IMAGE
+  VIDEO
+}
+
+enum HomepageSectionStatus {
+  ACTIVE
+  INACTIVE
+}
+
+model AdminUser {
+  id           String         @id @default(cuid())
+  email        String         @unique
+  name         String?
+  passwordHash String
+  isActive     Boolean        @default(true)
+  sessions     AdminSession[]
+  lastLoginAt  DateTime?
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+}
+
+model AdminSession {
+  id        String    @id @default(cuid())
+  tokenHash String    @unique
+  adminId   String
+  expiresAt DateTime
+  createdAt DateTime  @default(now())
+  admin     AdminUser @relation(fields: [adminId], references: [id], onDelete: Cascade)
+
+  @@index([adminId])
+  @@index([expiresAt])
+}
+
+model Category {
+  id           String                @id @default(cuid())
+  slug         String                @unique
+  sortOrder    Int                   @default(0)
+  isActive     Boolean               @default(true)
+  products     Product[]
+  translations CategoryTranslation[]
+  createdAt    DateTime              @default(now())
+  updatedAt    DateTime              @updatedAt
+}
+
+model CategoryTranslation {
+  id          String   @id @default(cuid())
+  categoryId  String
+  locale      Locale
+  name        String
+  description String?
+  category    Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+
+  @@unique([categoryId, locale])
+  @@index([locale])
+}
+
+model Product {
+  id              String               @id @default(cuid())
+  slug            String               @unique
+  sku             String               @unique
+  categoryId      String?
+  price           Decimal              @db.Decimal(10, 2)
+  compareAtPrice  Decimal?             @db.Decimal(10, 2)
+  currency        String               @default("SAR")
+  stock           Int                  @default(0)
+  status          ProductStatus        @default(DRAFT)
+  isFeatured      Boolean              @default(false)
+  rating          Decimal              @default(5.0) @db.Decimal(2, 1)
+  reviewCount     Int                  @default(0)
+  sortOrder       Int                  @default(0)
+  fragranceFamily String?
+  category        Category?            @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  translations    ProductTranslation[]
+  media           ProductMedia[]
+  analyticsEvents AnalyticsEvent[]
+  dailyAnalytics  ProductAnalytics[]
+  createdAt       DateTime             @default(now())
+  updatedAt       DateTime             @updatedAt
+  deletedAt       DateTime?
+
+  @@index([categoryId])
+  @@index([status, isFeatured])
+  @@index([status, deletedAt])
+  @@index([createdAt])
+}
+
+model AnalyticsEvent {
+  id               String             @id @default(cuid())
+  eventType        AnalyticsEventType
+  visitorId        String
+  sessionId        String
+  productId        String?
+  product          Product?           @relation(fields: [productId], references: [id], onDelete: SetNull)
+  orderReference   String?
+  quantity         Int?
+  revenue          Decimal?           @db.Decimal(12, 2)
+  currency         String             @default("SAR")
+  path             String?
+  referrer         String?
+  trafficSourceId  String?
+  trafficSource    TrafficSource?     @relation(fields: [trafficSourceId], references: [id], onDelete: SetNull)
+  deduplicationKey String?            @unique
+  metadata         Json?
+  occurredAt       DateTime           @default(now())
+  createdAt        DateTime           @default(now())
+
+  @@index([eventType, occurredAt])
+  @@index([visitorId, occurredAt])
+  @@index([sessionId, occurredAt])
+  @@index([productId, eventType, occurredAt])
+  @@index([trafficSourceId, eventType, occurredAt])
+  @@index([orderReference])
+}
+
+model TrafficSource {
+  id          String           @id @default(cuid())
+  fingerprint String           @unique
+  channel     TrafficChannel
+  utmSource   String?
+  utmMedium   String?
+  utmCampaign String?
+  utmContent  String?
+  firstSeenAt DateTime         @default(now())
+  lastSeenAt  DateTime         @updatedAt
+  events      AnalyticsEvent[]
+
+  @@index([channel])
+  @@index([utmSource])
+  @@index([utmCampaign])
+}
+
+model ProductAnalytics {
+  id             String   @id @default(cuid())
+  productId      String
+  product        Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  date           DateTime @db.Date
+  pageViews      Int      @default(0)
+  productViews   Int      @default(0)
+  addToCarts     Int      @default(0)
+  checkoutStarts Int      @default(0)
+  purchases      Int      @default(0)
+  unitsSold      Int      @default(0)
+  revenue        Decimal  @default(0) @db.Decimal(12, 2)
+  uniqueVisitors Int      @default(0)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@unique([productId, date])
+  @@index([date])
+  @@index([productId, date])
+}
+
+model ProductTranslation {
+  id               String   @id @default(cuid())
+  productId        String
+  locale           Locale
+  name             String
+  shortDescription String?
+  description      String
+  benefits         String[]
+  usage            String?
+  scentFamily      String?
+  fragranceNotes   String[] @default([])
+  topNotes         String[]
+  heartNotes       String[]
+  baseNotes        String[]
+  usageOccasions   String[]
+  story            String?
+  giftDescription  String?
+  metaTitle        String?
+  metaDescription  String?
+  product          Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, locale])
+  @@index([locale])
+}
+
+model ProductMedia {
+  id        String           @id @default(cuid())
+  productId String
+  type      ProductMediaType @default(DETAIL_IMAGE)
+  url       String
+  fileName  String?
+  mimeType  String?
+  altEn     String?
+  altAr     String?
+  sortOrder Int              @default(0)
+  isPrimary Boolean          @default(false)
+  product   Product          @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId, sortOrder])
+  @@index([productId, isPrimary])
+}
+
+model HomepageSection {
+  id              String                @id @default(cuid())
+  sectionKey      String                @unique @map("section_key")
+  title           String
+  subtitle        String?
+  mediaType       HomepageMediaType     @default(IMAGE) @map("media_type")
+  desktopMediaUrl String?               @map("desktop_media_url")
+  mobileMediaUrl  String?               @map("mobile_media_url")
+  buttonText      String?               @map("button_text")
+  buttonLink      String?               @map("button_link")
+  status          HomepageSectionStatus @default(ACTIVE)
+  sortOrder       Int                   @default(0) @map("sort_order")
+  createdAt       DateTime              @default(now()) @map("created_at")
+  updatedAt       DateTime              @updatedAt @map("updated_at")
+
+  @@index([status, sortOrder])
+  @@map("homepage_sections")
+}
