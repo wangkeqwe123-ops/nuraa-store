@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ChevronLeft, Star } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 import { notFound } from "next/navigation";
 import { CustomerTrust } from "@/components/product-detail/customer-trust";
 import { DeliveryReturns } from "@/components/product-detail/delivery-returns";
@@ -38,8 +38,8 @@ export default async function ProductPage({ params }: { params: Promise<{ locale
   const alternateName = locale === "en" ? product.ar.name : product.en.name;
   const editorialMedia = product.media.find((item) => item.type === "DETAIL_IMAGE");
   const labels = locale === "ar"
-    ? { back: "العودة إلى العطور", stock: "متوفر", low: "قطع متبقية", sold: "غير متوفر", reviews: "تقييماً" }
-    : { back: "Back to fragrances", stock: "In stock", low: "left in stock", sold: "Out of stock", reviews: "reviews" };
+    ? { back: "العودة إلى العطور", stock: "متوفر", low: "قطع متبقية", sold: "غير متوفر" }
+    : { back: "Back to fragrances", stock: "In stock", low: "left in stock", sold: "Out of stock" };
   const stockLabel = product.stock < 1 ? labels.sold : product.stock <= 5 ? `${product.stock} ${labels.low}` : labels.stock;
 
   return (
@@ -51,7 +51,7 @@ export default async function ProductPage({ params }: { params: Promise<{ locale
           <div className="lg:sticky lg:top-28 lg:self-start lg:py-5">
             <div className="flex items-center justify-between gap-5 border-b border-black/12 pb-5">
               <p className="text-xs uppercase tracking-[.2em] text-black/48">{product.fragranceFamily || copy.scentFamily || copy.category}</p>
-              <p className="flex items-center gap-1 text-sm"><Star className="size-3.5 fill-black" /> {product.rating.toFixed(1)} <span className="text-black/40">({product.reviewCount} {labels.reviews})</span></p>
+              <p className="text-xs uppercase tracking-[.14em] text-black/40">NURAA</p>
             </div>
             <h1 className="font-display mt-8 text-5xl font-medium leading-[.94] md:text-7xl">{copy.name}</h1>
             {alternateName ? <p className="mt-4 text-xl text-black/45" dir={locale === "en" ? "rtl" : "ltr"}>{alternateName}</p> : null}
@@ -60,7 +60,7 @@ export default async function ProductPage({ params }: { params: Promise<{ locale
               <div className="flex items-baseline gap-3"><span className="text-xl font-medium">{product.price.toLocaleString()} {product.currency}</span>{product.compareAtPrice ? <span className="text-sm text-black/35 line-through">{product.compareAtPrice.toLocaleString()} {product.currency}</span> : null}</div>
               <span className={`text-xs uppercase tracking-[.12em] ${product.stock > 0 ? "text-emerald-800" : "text-black/40"}`}>{stockLabel}</span>
             </div>
-            <ProductPurchasePanel stock={product.stock} locale={locale} />
+            <ProductPurchasePanel productId={product.id} stock={product.stock} locale={locale} />
             <p className="mt-6 border-t border-black/12 pt-5 text-sm leading-7 text-black/48">{copy.description}</p>
           </div>
         </div>

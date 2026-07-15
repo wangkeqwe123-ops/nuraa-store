@@ -13,7 +13,7 @@ export async function POST(request:Request){
   if(!parsed.success)return NextResponse.json({error:"Invalid analytics event"},{status:400});
   const d=parsed.data;
   const product=d.productId||d.productSlug?await db.product.findFirst({where:d.productId?{id:d.productId,deletedAt:null}:{slug:d.productSlug,deletedAt:null},select:{id:true}}):null;
-  if(d.eventType!=="PAGE_VIEW"&&!product)return NextResponse.json({error:"Product is required"},{status:400});
+  if((d.eventType==="PRODUCT_VIEW"||d.eventType==="ADD_TO_CART")&&!product)return NextResponse.json({error:"Product is required"},{status:400});
   const productId=product?.id;
   const source=clean(d.utmSource),medium=clean(d.utmMedium),campaign=clean(d.utmCampaign),content=clean(d.utmContent);
   const fingerprint=createHash("sha256").update([source,medium,campaign,content].join("|")).digest("hex");

@@ -50,6 +50,47 @@ enum HomepageSectionStatus {
   INACTIVE
 }
 
+enum CartStatus {
+  ACTIVE
+  CONVERTED
+  ABANDONED
+}
+
+enum OrderStatus {
+  PENDING_PAYMENT
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+}
+
+enum PaymentStatus {
+  PENDING
+  PROCESSING
+  PAID
+  FAILED
+  REFUNDED
+}
+
+enum FulfillmentStatus {
+  UNFULFILLED
+  PROCESSING
+  SHIPPED
+  DELIVERED
+}
+
+enum ShipmentStatus {
+  PENDING
+  SHIPPED
+  DELIVERED
+  RETURNED
+}
+
+enum InventoryReservationStatus {
+  ACTIVE
+  RELEASED
+  CONSUMED
+}
+
 model AdminUser {
   id           String         @id @default(cuid())
   email        String         @unique
@@ -108,7 +149,7 @@ model Product {
   stock           Int                  @default(0)
   status          ProductStatus        @default(DRAFT)
   isFeatured      Boolean              @default(false)
-  rating          Decimal              @default(5.0) @db.Decimal(2, 1)
+  rating          Decimal              @default(0.0) @db.Decimal(2, 1)
   reviewCount     Int                  @default(0)
   sortOrder       Int                  @default(0)
   fragranceFamily String?
@@ -117,6 +158,9 @@ model Product {
   media           ProductMedia[]
   analyticsEvents AnalyticsEvent[]
   dailyAnalytics  ProductAnalytics[]
+  cartItems       CartItem[]
+  orderItems      OrderItem[]
+  reservations    InventoryReservation[]
   createdAt       DateTime             @default(now())
   updatedAt       DateTime             @updatedAt
   deletedAt       DateTime?
@@ -125,6 +169,167 @@ model Product {
   @@index([status, isFeatured])
   @@index([status, deletedAt])
   @@index([createdAt])
+}
+
+model Customer {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  phone     String
+  name      String
+  locale    Locale   @default(EN)
+  orders    Order[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([phone])
+  @@index([createdAt])
+}
+
+model Cart {
+  id        String     @id @default(cuid())
+  token     String     @unique
+  status    CartStatus @default(ACTIVE)
+  locale    Locale     @default(EN)
+  expiresAt DateTime
+  items     CartItem[]
+  order     Order?
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  @@index([status, expiresAt])
+}
+
+model CartItem {
+  id        String   @id @default(cuid())
+  cartId    String
+  productId String
+  quantity  Int
+  cart      Cart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([cartId, productId])
+  @@index([productId])
+}
+
+model Order {
+  id                String            @id @default(cuid())
+  orderNumber       String            @unique
+  publicToken       String            @unique
+  cartId            String?           @unique
+  customerId        String
+  status            OrderStatus       @default(PENDING_PAYMENT)
+  paymentStatus     PaymentStatus     @default(PENDING)
+  fulfillmentStatus FulfillmentStatus @default(UNFULFILLED)
+  subtotal          Decimal           @db.Decimal(12, 2)
+  shippingAmount    Decimal           @default(0) @db.Decimal(12, 2)
+  taxAmount         Decimal           @default(0) @db.Decimal(12, 2)
+  discountAmount    Decimal           @default(0) @db.Decimal(12, 2)
+  totalAmount       Decimal           @db.Decimal(12, 2)
+  currency          String            @default("SAR")
+  locale            Locale            @default(EN)
+  customerName      String
+  customerEmail     String
+  customerPhone     String
+  shippingAddress   Json
+  utmSource         String?
+  utmCampaign       String?
+  utmContent        String?
+  notes             String?
+  cart              Cart?             @relation(fields: [cartId], references: [id], onDelete: SetNull)
+  customer          Customer          @relation(fields: [customerId], references: [id], onDelete: Restrict)
+  items             OrderItem[]
+  payments          Payment[]
+  shipment          Shipment?
+  reservations      InventoryReservation[]
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+
+  @@index([status, createdAt])
+  @@index([paymentStatus, createdAt])
+  @@index([fulfillmentStatus, createdAt])
+  @@index([customerId, createdAt])
+}
+
+model OrderItem {
+  id          String   @id @default(cuid())
+  orderId     String
+  productId   String?
+  sku         String
+  productName String
+  imageUrl    String?
+  unitPrice   Decimal  @db.Decimal(12, 2)
+  quantity    Int
+  lineTotal   Decimal  @db.Decimal(12, 2)
+  order       Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product     Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+  createdAt   DateTime @default(now())
+
+  @@index([orderId])
+  @@index([productId])
+}
+
+model Payment {
+  id                String        @id @default(cuid())
+  orderId           String
+  provider          String
+  providerPaymentId String?       @unique
+  status            PaymentStatus @default(PENDING)
+  amount            Decimal       @db.Decimal(12, 2)
+  currency          String        @default("SAR")
+  idempotencyKey    String        @unique
+  failureReason     String?
+  metadata          Json?
+  paidAt            DateTime?
+  order             Order         @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+
+  @@index([orderId, status])
+}
+
+model Shipment {
+  id             String         @id @default(cuid())
+  orderId        String         @unique
+  carrier        String?
+  trackingNumber String?
+  status         ShipmentStatus @default(PENDING)
+  shippedAt      DateTime?
+  deliveredAt    DateTime?
+  order          Order          @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+}
+
+model WebhookEvent {
+  id              String   @id @default(cuid())
+  provider        String
+  externalEventId String
+  eventType       String
+  payload         Json
+  processedAt     DateTime?
+  createdAt       DateTime @default(now())
+
+  @@unique([provider, externalEventId])
+  @@index([provider, createdAt])
+}
+
+model InventoryReservation {
+  id        String                     @id @default(cuid())
+  orderId   String
+  productId String
+  quantity  Int
+  status    InventoryReservationStatus @default(ACTIVE)
+  expiresAt DateTime
+  order     Order                      @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product   Product                    @relation(fields: [productId], references: [id], onDelete: Cascade)
+  createdAt DateTime                   @default(now())
+  updatedAt DateTime                   @updatedAt
+
+  @@unique([orderId, productId])
+  @@index([status, expiresAt])
+  @@index([productId, status])
 }
 
 model AnalyticsEvent {
