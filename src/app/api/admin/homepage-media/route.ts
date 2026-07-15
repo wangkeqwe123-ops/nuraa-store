@@ -19,7 +19,10 @@ export async function POST(request:Request){
     const extension=file.name.split(".").pop()?.replace(/[^a-z0-9]/gi,"").toLowerCase()||"bin";
     const url=await uploadHomepageMedia(file,`${sectionKey}/${Date.now()}-${randomUUID()}.${extension}`);
     return NextResponse.json({url,mediaType:file.type.startsWith("video/")?"VIDEO":"IMAGE"});
-  }catch(error){return NextResponse.json({error:error instanceof Error?error.message:"Upload failed."},{status:500});}
+  }catch(error){
+    console.error("Homepage media upload failed", error instanceof Error ? { name:error.name, message:error.message, stack:error.stack } : { message:"Unknown upload error" });
+    return NextResponse.json({error:error instanceof Error?error.message:"Upload failed."},{status:500});
+  }
 }
 
 export async function DELETE(request:Request){
@@ -35,5 +38,8 @@ export async function DELETE(request:Request){
     const references=await db.homepageSection.findMany({where:{OR:[{desktopMediaUrl:url},{mobileMediaUrl:url}]},select:{sectionKey:true,desktopMediaUrl:true,mobileMediaUrl:true}});
     if(references.length===0)await deleteHomepageMedia(url);
     return NextResponse.json({ok:true,references:references.map(item=>item.sectionKey)});
-  }catch(error){return NextResponse.json({error:error instanceof Error?error.message:"Delete failed."},{status:500});}
+  }catch(error){
+    console.error("Homepage media delete failed", error instanceof Error ? { name:error.name, message:error.message, stack:error.stack } : { message:"Unknown delete error" });
+    return NextResponse.json({error:error instanceof Error?error.message:"Delete failed."},{status:500});
+  }
 }
