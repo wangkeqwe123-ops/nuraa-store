@@ -5,8 +5,9 @@ const DEFAULT_PRODUCT_BUCKET = "product-media";
 const allowedMimeTypes = ["image/jpeg", "image/png", "image/webp", "image/avif", "image/gif", "video/mp4", "video/webm"];
 
 function config() {
-  const url = process.env.SUPABASE_URL?.replace(/\/$/, "");
-  const serviceKey = process.env.SUPABASE_SECRET_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const clean = (value?: string) => value?.trim().replace(/^(["'])(.*)\1$/, "$2");
+  const url = clean(process.env.SUPABASE_URL)?.replace(/\/$/, "");
+  const serviceKey = clean(process.env.SUPABASE_SECRET_KEY) || clean(process.env.SUPABASE_SERVICE_ROLE_KEY);
   if (!url || !serviceKey) throw new Error("Supabase Storage 未配置，请检查 SUPABASE_URL 和 SUPABASE_SECRET_KEY。");
   return {
     url,
@@ -26,7 +27,9 @@ async function storageFetch(path: string, init: RequestInit = {}) {
   const { url, serviceKey } = config();
   const headers = new Headers(init.headers);
   headers.set("apikey", serviceKey);
-  if (!serviceKey.startsWith("sb_secret_")) headers.set("Authorization", `Bearer ${serviceKey}`);
+  // Supabase's gateway accepts the same server key in both headers and
+  // translates opaque sb_secret keys before forwarding requests to Storage.
+  headers.set("Authorization", `Bearer ${serviceKey}`);
   return fetch(`${url}/storage/v1${path}`, { ...init, headers, cache: "no-store" });
 }
 
