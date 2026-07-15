@@ -23,8 +23,17 @@ let client: SupabaseClient | null = null;
 function storageClient() {
   if (client) return client;
   const { url, serviceKey } = config();
+  const storageFetch: typeof fetch = async (input, init) => {
+    const headers = new Headers(init?.headers);
+    const authorization = headers.get("authorization");
+    if (serviceKey.startsWith("sb_secret_") && authorization === `Bearer ${serviceKey}`) {
+      headers.delete("authorization");
+    }
+    return globalThis.fetch(input, { ...init, headers });
+  };
   client = createClient(url, serviceKey, {
     auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false },
+    global: { fetch: storageFetch },
   });
   return client;
 }
