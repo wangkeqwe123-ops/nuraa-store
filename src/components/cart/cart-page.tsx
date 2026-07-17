@@ -28,8 +28,8 @@ export function CartPage({ locale, initialCart }: { locale: Locale; initialCart:
     setPendingId(null); window.dispatchEvent(new CustomEvent("nuraa:cart-updated"));
   }
 
-  return <main className="bg-[#fcfbf8] text-black"><section className="mx-auto max-w-6xl px-5 py-16 md:px-10 md:py-24">
-    <p className="text-xs uppercase tracking-[.2em] text-[#9A7137]">{copy.eyebrow}</p><h1 className="font-display mt-4 text-5xl md:text-7xl">{copy.title}</h1>
+  return <main className="bg-[#fbfaf6] text-[#1b1d1a]"><section className="mx-auto max-w-6xl px-5 py-16 md:px-10 md:py-24">
+    <p className="text-xs font-semibold uppercase tracking-[.2em] text-[#7b4d35]">{copy.eyebrow}</p><h1 className="font-display mt-4 text-6xl text-[#1f342b] md:text-8xl">{copy.title}</h1>
     {!cart.items.length ? <div className="mt-14 border-y border-black/12 py-20 text-center"><p className="text-lg text-black/55">{copy.empty}</p><Button nativeButton={false} render={<Link href={`/${locale}/products`}/>} className="mt-8 rounded-none bg-black px-8 text-white">{copy.shop}</Button></div> : <div className="mt-12 grid gap-12 lg:grid-cols-[1fr_360px]">
       <div className="divide-y divide-black/12 border-y border-black/12">{cart.items.map(item=><article key={item.id} className="grid grid-cols-[110px_1fr] gap-5 py-6 sm:grid-cols-[150px_1fr]">
         <Link href={`/${locale}/products/${item.slug}`} className="relative aspect-[4/5] overflow-hidden bg-[#eee8de]"><Image src={item.image} alt={item.name} fill className="object-cover" sizes="150px"/></Link>

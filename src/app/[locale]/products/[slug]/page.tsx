@@ -43,7 +43,7 @@ export default async function ProductPage({ params }: { params: Promise<{ locale
   const stockLabel = product.stock < 1 ? labels.sold : product.stock <= 5 ? `${product.stock} ${labels.low}` : labels.stock;
 
   return (
-    <main className="bg-[#fcfbf8] text-black">
+    <main className="bg-[#fbfaf6] text-[#1b1d1a]">
       <section className="mx-auto max-w-[1500px] px-5 py-8 md:px-10 md:py-14">
         <Link href={`/${locale}/products`} className="inline-flex items-center gap-2 text-xs uppercase tracking-[.16em] text-black/50 transition hover:text-black"><ChevronLeft className={locale === "ar" ? "rotate-180" : ""} size={15} />{labels.back}</Link>
         <div className="mt-8 grid gap-12 lg:grid-cols-[1.1fr_.9fr] lg:gap-20">

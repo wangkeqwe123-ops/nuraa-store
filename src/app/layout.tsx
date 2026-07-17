@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Noto_Sans_Arabic, Geist } from "next/font/google";
+import { Cormorant_Garamond, Noto_Sans_Arabic, Outfit } from "next/font/google";
 import "./globals.css";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+const sans = Outfit({ subsets: ["latin"], variable: "--font-sans" });
 
 const display = Cormorant_Garamond({
   variable: "--font-display",
@@ -28,7 +28,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={cn("h-full", "antialiased", display.variable, arabic.variable, "font-sans", geist.variable)}>
+    <html lang="en" className={cn("h-full", "antialiased", display.variable, arabic.variable, "font-sans", sans.variable)}>
       <body className="min-h-full flex flex-col"><TooltipProvider>{children}</TooltipProvider></body>
     </html>
   );
