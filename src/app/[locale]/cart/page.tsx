@@ -8,6 +8,6 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
   const cookieStore = await cookies();
-  const cart = await serializeCart(cookieStore.get(CART_COOKIE)?.value);
+  const cart = await serializeCart(cookieStore.get(CART_COOKIE)?.value, locale);
   return <CartPage locale={locale} initialCart={cart} />;
 }

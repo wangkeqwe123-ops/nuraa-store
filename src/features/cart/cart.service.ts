@@ -1,17 +1,37 @@
 import "server-only";
 import { db } from "@/lib/db";
+import type { Locale as StorefrontLocale } from "@/i18n/config";
 
 export const CART_COOKIE = "nuraa_cart";
 export const CART_TTL_DAYS = 30;
+export const CART_MAX_ITEM_QUANTITY = 20;
 
 const cartInclude = {
   items: {
     orderBy: { createdAt: "asc" as const },
     include: {
       product: {
-        include: {
-          translations: true,
-          media: { orderBy: { sortOrder: "asc" as const } },
+        select: {
+          id: true,
+          slug: true,
+          sku: true,
+          price: true,
+          currency: true,
+          stock: true,
+          status: true,
+          deletedAt: true,
+          translations: {
+            select: { locale: true, name: true },
+          },
+          media: {
+            orderBy: { sortOrder: "asc" as const },
+            select: {
+              type: true,
+              url: true,
+              sortOrder: true,
+              isPrimary: true,
+            },
+          },
         },
       },
     },
@@ -26,11 +46,13 @@ export async function getActiveCart(token?: string | null) {
   });
 }
 
-export async function serializeCart(token?: string | null) {
+export async function serializeCart(token?: string | null, requestedLocale?: StorefrontLocale) {
   const cart = await getActiveCart(token);
   if (!cart) return { id: null, itemCount: 0, subtotal: 0, currency: "SAR", items: [] };
   const items = cart.items.map((item) => {
-    const locale = cart.locale === "AR" ? "AR" : "EN";
+    const locale = requestedLocale
+      ? requestedLocale === "ar" ? "AR" : "EN"
+      : cart.locale === "AR" ? "AR" : "EN";
     const translation = item.product.translations.find((entry) => entry.locale === locale)
       ?? item.product.translations.find((entry) => entry.locale === "EN");
     const image = item.product.media.find((entry) => entry.type === "MAIN_IMAGE" && entry.isPrimary)?.url
@@ -48,7 +70,9 @@ export async function serializeCart(token?: string | null) {
       price,
       currency: item.product.currency,
       stock: item.product.stock,
-      available: item.product.status === "ACTIVE" && !item.product.deletedAt && item.product.stock > 0,
+      available: item.product.status === "ACTIVE"
+        && !item.product.deletedAt
+        && item.product.stock >= item.quantity,
       quantity: item.quantity,
       lineTotal: price * item.quantity,
     };

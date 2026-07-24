@@ -35,7 +35,7 @@ export function SiteHeader({
 
   useEffect(() => {
     const load = () => {
-      void fetch("/api/cart")
+      void fetch(`/api/cart?locale=${locale}`, { cache: "no-store" })
         .then((response) => response.ok ? response.json() : null)
         .then((data) => setBagCount(data?.itemCount ?? 0))
         .catch(() => undefined);
@@ -43,7 +43,7 @@ export function SiteHeader({
     load();
     window.addEventListener("nuraa:cart-updated", load);
     return () => window.removeEventListener("nuraa:cart-updated", load);
-  }, []);
+  }, [locale]);
 
   return (
     <>
