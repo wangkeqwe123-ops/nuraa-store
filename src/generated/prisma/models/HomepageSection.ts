@@ -39,11 +39,18 @@ export type HomepageSectionMinAggregateOutputType = {
   sectionKey: string | null
   title: string | null
   subtitle: string | null
+  titleEn: string | null
+  titleAr: string | null
+  subtitleEn: string | null
+  subtitleAr: string | null
   mediaType: $Enums.HomepageMediaType | null
   desktopMediaUrl: string | null
   mobileMediaUrl: string | null
   buttonText: string | null
   buttonLink: string | null
+  ctaTextEn: string | null
+  ctaTextAr: string | null
+  ctaLink: string | null
   status: $Enums.HomepageSectionStatus | null
   sortOrder: number | null
   createdAt: Date | null
@@ -55,11 +62,18 @@ export type HomepageSectionMaxAggregateOutputType = {
   sectionKey: string | null
   title: string | null
   subtitle: string | null
+  titleEn: string | null
+  titleAr: string | null
+  subtitleEn: string | null
+  subtitleAr: string | null
   mediaType: $Enums.HomepageMediaType | null
   desktopMediaUrl: string | null
   mobileMediaUrl: string | null
   buttonText: string | null
   buttonLink: string | null
+  ctaTextEn: string | null
+  ctaTextAr: string | null
+  ctaLink: string | null
   status: $Enums.HomepageSectionStatus | null
   sortOrder: number | null
   createdAt: Date | null
@@ -71,11 +85,18 @@ export type HomepageSectionCountAggregateOutputType = {
   sectionKey: number
   title: number
   subtitle: number
+  titleEn: number
+  titleAr: number
+  subtitleEn: number
+  subtitleAr: number
   mediaType: number
   desktopMediaUrl: number
   mobileMediaUrl: number
   buttonText: number
   buttonLink: number
+  ctaTextEn: number
+  ctaTextAr: number
+  ctaLink: number
   status: number
   sortOrder: number
   createdAt: number
@@ -97,11 +118,18 @@ export type HomepageSectionMinAggregateInputType = {
   sectionKey?: true
   title?: true
   subtitle?: true
+  titleEn?: true
+  titleAr?: true
+  subtitleEn?: true
+  subtitleAr?: true
   mediaType?: true
   desktopMediaUrl?: true
   mobileMediaUrl?: true
   buttonText?: true
   buttonLink?: true
+  ctaTextEn?: true
+  ctaTextAr?: true
+  ctaLink?: true
   status?: true
   sortOrder?: true
   createdAt?: true
@@ -113,11 +141,18 @@ export type HomepageSectionMaxAggregateInputType = {
   sectionKey?: true
   title?: true
   subtitle?: true
+  titleEn?: true
+  titleAr?: true
+  subtitleEn?: true
+  subtitleAr?: true
   mediaType?: true
   desktopMediaUrl?: true
   mobileMediaUrl?: true
   buttonText?: true
   buttonLink?: true
+  ctaTextEn?: true
+  ctaTextAr?: true
+  ctaLink?: true
   status?: true
   sortOrder?: true
   createdAt?: true
@@ -129,11 +164,18 @@ export type HomepageSectionCountAggregateInputType = {
   sectionKey?: true
   title?: true
   subtitle?: true
+  titleEn?: true
+  titleAr?: true
+  subtitleEn?: true
+  subtitleAr?: true
   mediaType?: true
   desktopMediaUrl?: true
   mobileMediaUrl?: true
   buttonText?: true
   buttonLink?: true
+  ctaTextEn?: true
+  ctaTextAr?: true
+  ctaLink?: true
   status?: true
   sortOrder?: true
   createdAt?: true
@@ -232,11 +274,18 @@ export type HomepageSectionGroupByOutputType = {
   sectionKey: string
   title: string
   subtitle: string | null
+  titleEn: string | null
+  titleAr: string | null
+  subtitleEn: string | null
+  subtitleAr: string | null
   mediaType: $Enums.HomepageMediaType
   desktopMediaUrl: string | null
   mobileMediaUrl: string | null
   buttonText: string | null
   buttonLink: string | null
+  ctaTextEn: string | null
+  ctaTextAr: string | null
+  ctaLink: string | null
   status: $Enums.HomepageSectionStatus
   sortOrder: number
   createdAt: Date
@@ -271,11 +320,18 @@ export type HomepageSectionWhereInput = {
   sectionKey?: Prisma.StringFilter<"HomepageSection"> | string
   title?: Prisma.StringFilter<"HomepageSection"> | string
   subtitle?: Prisma.StringNullableFilter<"HomepageSection"> | string | null
+  titleEn?: Prisma.StringNullableFilter<"HomepageSection"> | string | null
+  titleAr?: Prisma.StringNullableFilter<"HomepageSection"> | string | null
+  subtitleEn?: Prisma.StringNullableFilter<"HomepageSection"> | string | null
+  subtitleAr?: Prisma.StringNullableFilter<"HomepageSection"> | string | null
   mediaType?: Prisma.EnumHomepageMediaTypeFilter<"HomepageSection"> | $Enums.HomepageMediaType
   desktopMediaUrl?: Prisma.StringNullableFilter<"HomepageSection"> | string | null
   mobileMediaUrl?: Prisma.StringNullableFilter<"HomepageSection"> | string | null
   buttonText?: Prisma.StringNullableFilter<"HomepageSection"> | string | null
   buttonLink?: Prisma.StringNullableFilter<"HomepageSection"> | string | null
+  ctaTextEn?: Prisma.StringNullableFilter<"HomepageSection"> | string | null
+  ctaTextAr?: Prisma.StringNullableFilter<"HomepageSection"> | string | null
+  ctaLink?: Prisma.StringNullableFilter<"HomepageSection"> | string | null
   status?: Prisma.EnumHomepageSectionStatusFilter<"HomepageSection"> | $Enums.HomepageSectionStatus
   sortOrder?: Prisma.IntFilter<"HomepageSection"> | number
   createdAt?: Prisma.DateTimeFilter<"HomepageSection"> | Date | string
@@ -287,11 +343,18 @@ export type HomepageSectionOrderByWithRelationInput = {
   sectionKey?: Prisma.SortOrder
   title?: Prisma.SortOrder
   subtitle?: Prisma.SortOrderInput | Prisma.SortOrder
+  titleEn?: Prisma.SortOrderInput | Prisma.SortOrder
+  titleAr?: Prisma.SortOrderInput | Prisma.SortOrder
+  subtitleEn?: Prisma.SortOrderInput | Prisma.SortOrder
+  subtitleAr?: Prisma.SortOrderInput | Prisma.SortOrder
   mediaType?: Prisma.SortOrder
   desktopMediaUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   mobileMediaUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   buttonText?: Prisma.SortOrderInput | Prisma.SortOrder
   buttonLink?: Prisma.SortOrderInput | Prisma.SortOrder
+  ctaTextEn?: Prisma.SortOrderInput | Prisma.SortOrder
+  ctaTextAr?: Prisma.SortOrderInput | Prisma.SortOrder
+  ctaLink?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -306,11 +369,18 @@ export type HomepageSectionWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.HomepageSectionWhereInput | Prisma.HomepageSectionWhereInput[]
   title?: Prisma.StringFilter<"HomepageSection"> | string
   subtitle?: Prisma.StringNullableFilter<"HomepageSection"> | string | null
+  titleEn?: Prisma.StringNullableFilter<"HomepageSection"> | string | null
+  titleAr?: Prisma.StringNullableFilter<"HomepageSection"> | string | null
+  subtitleEn?: Prisma.StringNullableFilter<"HomepageSection"> | string | null
+  subtitleAr?: Prisma.StringNullableFilter<"HomepageSection"> | string | null
   mediaType?: Prisma.EnumHomepageMediaTypeFilter<"HomepageSection"> | $Enums.HomepageMediaType
   desktopMediaUrl?: Prisma.StringNullableFilter<"HomepageSection"> | string | null
   mobileMediaUrl?: Prisma.StringNullableFilter<"HomepageSection"> | string | null
   buttonText?: Prisma.StringNullableFilter<"HomepageSection"> | string | null
   buttonLink?: Prisma.StringNullableFilter<"HomepageSection"> | string | null
+  ctaTextEn?: Prisma.StringNullableFilter<"HomepageSection"> | string | null
+  ctaTextAr?: Prisma.StringNullableFilter<"HomepageSection"> | string | null
+  ctaLink?: Prisma.StringNullableFilter<"HomepageSection"> | string | null
   status?: Prisma.EnumHomepageSectionStatusFilter<"HomepageSection"> | $Enums.HomepageSectionStatus
   sortOrder?: Prisma.IntFilter<"HomepageSection"> | number
   createdAt?: Prisma.DateTimeFilter<"HomepageSection"> | Date | string
@@ -322,11 +392,18 @@ export type HomepageSectionOrderByWithAggregationInput = {
   sectionKey?: Prisma.SortOrder
   title?: Prisma.SortOrder
   subtitle?: Prisma.SortOrderInput | Prisma.SortOrder
+  titleEn?: Prisma.SortOrderInput | Prisma.SortOrder
+  titleAr?: Prisma.SortOrderInput | Prisma.SortOrder
+  subtitleEn?: Prisma.SortOrderInput | Prisma.SortOrder
+  subtitleAr?: Prisma.SortOrderInput | Prisma.SortOrder
   mediaType?: Prisma.SortOrder
   desktopMediaUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   mobileMediaUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   buttonText?: Prisma.SortOrderInput | Prisma.SortOrder
   buttonLink?: Prisma.SortOrderInput | Prisma.SortOrder
+  ctaTextEn?: Prisma.SortOrderInput | Prisma.SortOrder
+  ctaTextAr?: Prisma.SortOrderInput | Prisma.SortOrder
+  ctaLink?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -346,11 +423,18 @@ export type HomepageSectionScalarWhereWithAggregatesInput = {
   sectionKey?: Prisma.StringWithAggregatesFilter<"HomepageSection"> | string
   title?: Prisma.StringWithAggregatesFilter<"HomepageSection"> | string
   subtitle?: Prisma.StringNullableWithAggregatesFilter<"HomepageSection"> | string | null
+  titleEn?: Prisma.StringNullableWithAggregatesFilter<"HomepageSection"> | string | null
+  titleAr?: Prisma.StringNullableWithAggregatesFilter<"HomepageSection"> | string | null
+  subtitleEn?: Prisma.StringNullableWithAggregatesFilter<"HomepageSection"> | string | null
+  subtitleAr?: Prisma.StringNullableWithAggregatesFilter<"HomepageSection"> | string | null
   mediaType?: Prisma.EnumHomepageMediaTypeWithAggregatesFilter<"HomepageSection"> | $Enums.HomepageMediaType
   desktopMediaUrl?: Prisma.StringNullableWithAggregatesFilter<"HomepageSection"> | string | null
   mobileMediaUrl?: Prisma.StringNullableWithAggregatesFilter<"HomepageSection"> | string | null
   buttonText?: Prisma.StringNullableWithAggregatesFilter<"HomepageSection"> | string | null
   buttonLink?: Prisma.StringNullableWithAggregatesFilter<"HomepageSection"> | string | null
+  ctaTextEn?: Prisma.StringNullableWithAggregatesFilter<"HomepageSection"> | string | null
+  ctaTextAr?: Prisma.StringNullableWithAggregatesFilter<"HomepageSection"> | string | null
+  ctaLink?: Prisma.StringNullableWithAggregatesFilter<"HomepageSection"> | string | null
   status?: Prisma.EnumHomepageSectionStatusWithAggregatesFilter<"HomepageSection"> | $Enums.HomepageSectionStatus
   sortOrder?: Prisma.IntWithAggregatesFilter<"HomepageSection"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"HomepageSection"> | Date | string
@@ -362,11 +446,18 @@ export type HomepageSectionCreateInput = {
   sectionKey: string
   title: string
   subtitle?: string | null
+  titleEn?: string | null
+  titleAr?: string | null
+  subtitleEn?: string | null
+  subtitleAr?: string | null
   mediaType?: $Enums.HomepageMediaType
   desktopMediaUrl?: string | null
   mobileMediaUrl?: string | null
   buttonText?: string | null
   buttonLink?: string | null
+  ctaTextEn?: string | null
+  ctaTextAr?: string | null
+  ctaLink?: string | null
   status?: $Enums.HomepageSectionStatus
   sortOrder?: number
   createdAt?: Date | string
@@ -378,11 +469,18 @@ export type HomepageSectionUncheckedCreateInput = {
   sectionKey: string
   title: string
   subtitle?: string | null
+  titleEn?: string | null
+  titleAr?: string | null
+  subtitleEn?: string | null
+  subtitleAr?: string | null
   mediaType?: $Enums.HomepageMediaType
   desktopMediaUrl?: string | null
   mobileMediaUrl?: string | null
   buttonText?: string | null
   buttonLink?: string | null
+  ctaTextEn?: string | null
+  ctaTextAr?: string | null
+  ctaLink?: string | null
   status?: $Enums.HomepageSectionStatus
   sortOrder?: number
   createdAt?: Date | string
@@ -394,11 +492,18 @@ export type HomepageSectionUpdateInput = {
   sectionKey?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   subtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleEn?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleAr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subtitleEn?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subtitleAr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mediaType?: Prisma.EnumHomepageMediaTypeFieldUpdateOperationsInput | $Enums.HomepageMediaType
   desktopMediaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mobileMediaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buttonText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buttonLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctaTextEn?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctaTextAr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctaLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumHomepageSectionStatusFieldUpdateOperationsInput | $Enums.HomepageSectionStatus
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -410,11 +515,18 @@ export type HomepageSectionUncheckedUpdateInput = {
   sectionKey?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   subtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleEn?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleAr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subtitleEn?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subtitleAr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mediaType?: Prisma.EnumHomepageMediaTypeFieldUpdateOperationsInput | $Enums.HomepageMediaType
   desktopMediaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mobileMediaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buttonText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buttonLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctaTextEn?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctaTextAr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctaLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumHomepageSectionStatusFieldUpdateOperationsInput | $Enums.HomepageSectionStatus
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -426,11 +538,18 @@ export type HomepageSectionCreateManyInput = {
   sectionKey: string
   title: string
   subtitle?: string | null
+  titleEn?: string | null
+  titleAr?: string | null
+  subtitleEn?: string | null
+  subtitleAr?: string | null
   mediaType?: $Enums.HomepageMediaType
   desktopMediaUrl?: string | null
   mobileMediaUrl?: string | null
   buttonText?: string | null
   buttonLink?: string | null
+  ctaTextEn?: string | null
+  ctaTextAr?: string | null
+  ctaLink?: string | null
   status?: $Enums.HomepageSectionStatus
   sortOrder?: number
   createdAt?: Date | string
@@ -442,11 +561,18 @@ export type HomepageSectionUpdateManyMutationInput = {
   sectionKey?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   subtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleEn?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleAr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subtitleEn?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subtitleAr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mediaType?: Prisma.EnumHomepageMediaTypeFieldUpdateOperationsInput | $Enums.HomepageMediaType
   desktopMediaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mobileMediaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buttonText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buttonLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctaTextEn?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctaTextAr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctaLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumHomepageSectionStatusFieldUpdateOperationsInput | $Enums.HomepageSectionStatus
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -458,11 +584,18 @@ export type HomepageSectionUncheckedUpdateManyInput = {
   sectionKey?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   subtitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleEn?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleAr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subtitleEn?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  subtitleAr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mediaType?: Prisma.EnumHomepageMediaTypeFieldUpdateOperationsInput | $Enums.HomepageMediaType
   desktopMediaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mobileMediaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buttonText?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   buttonLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctaTextEn?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctaTextAr?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ctaLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumHomepageSectionStatusFieldUpdateOperationsInput | $Enums.HomepageSectionStatus
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -474,11 +607,18 @@ export type HomepageSectionCountOrderByAggregateInput = {
   sectionKey?: Prisma.SortOrder
   title?: Prisma.SortOrder
   subtitle?: Prisma.SortOrder
+  titleEn?: Prisma.SortOrder
+  titleAr?: Prisma.SortOrder
+  subtitleEn?: Prisma.SortOrder
+  subtitleAr?: Prisma.SortOrder
   mediaType?: Prisma.SortOrder
   desktopMediaUrl?: Prisma.SortOrder
   mobileMediaUrl?: Prisma.SortOrder
   buttonText?: Prisma.SortOrder
   buttonLink?: Prisma.SortOrder
+  ctaTextEn?: Prisma.SortOrder
+  ctaTextAr?: Prisma.SortOrder
+  ctaLink?: Prisma.SortOrder
   status?: Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -494,11 +634,18 @@ export type HomepageSectionMaxOrderByAggregateInput = {
   sectionKey?: Prisma.SortOrder
   title?: Prisma.SortOrder
   subtitle?: Prisma.SortOrder
+  titleEn?: Prisma.SortOrder
+  titleAr?: Prisma.SortOrder
+  subtitleEn?: Prisma.SortOrder
+  subtitleAr?: Prisma.SortOrder
   mediaType?: Prisma.SortOrder
   desktopMediaUrl?: Prisma.SortOrder
   mobileMediaUrl?: Prisma.SortOrder
   buttonText?: Prisma.SortOrder
   buttonLink?: Prisma.SortOrder
+  ctaTextEn?: Prisma.SortOrder
+  ctaTextAr?: Prisma.SortOrder
+  ctaLink?: Prisma.SortOrder
   status?: Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -510,11 +657,18 @@ export type HomepageSectionMinOrderByAggregateInput = {
   sectionKey?: Prisma.SortOrder
   title?: Prisma.SortOrder
   subtitle?: Prisma.SortOrder
+  titleEn?: Prisma.SortOrder
+  titleAr?: Prisma.SortOrder
+  subtitleEn?: Prisma.SortOrder
+  subtitleAr?: Prisma.SortOrder
   mediaType?: Prisma.SortOrder
   desktopMediaUrl?: Prisma.SortOrder
   mobileMediaUrl?: Prisma.SortOrder
   buttonText?: Prisma.SortOrder
   buttonLink?: Prisma.SortOrder
+  ctaTextEn?: Prisma.SortOrder
+  ctaTextAr?: Prisma.SortOrder
+  ctaLink?: Prisma.SortOrder
   status?: Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -540,11 +694,18 @@ export type HomepageSectionSelect<ExtArgs extends runtime.Types.Extensions.Inter
   sectionKey?: boolean
   title?: boolean
   subtitle?: boolean
+  titleEn?: boolean
+  titleAr?: boolean
+  subtitleEn?: boolean
+  subtitleAr?: boolean
   mediaType?: boolean
   desktopMediaUrl?: boolean
   mobileMediaUrl?: boolean
   buttonText?: boolean
   buttonLink?: boolean
+  ctaTextEn?: boolean
+  ctaTextAr?: boolean
+  ctaLink?: boolean
   status?: boolean
   sortOrder?: boolean
   createdAt?: boolean
@@ -556,11 +717,18 @@ export type HomepageSectionSelectCreateManyAndReturn<ExtArgs extends runtime.Typ
   sectionKey?: boolean
   title?: boolean
   subtitle?: boolean
+  titleEn?: boolean
+  titleAr?: boolean
+  subtitleEn?: boolean
+  subtitleAr?: boolean
   mediaType?: boolean
   desktopMediaUrl?: boolean
   mobileMediaUrl?: boolean
   buttonText?: boolean
   buttonLink?: boolean
+  ctaTextEn?: boolean
+  ctaTextAr?: boolean
+  ctaLink?: boolean
   status?: boolean
   sortOrder?: boolean
   createdAt?: boolean
@@ -572,11 +740,18 @@ export type HomepageSectionSelectUpdateManyAndReturn<ExtArgs extends runtime.Typ
   sectionKey?: boolean
   title?: boolean
   subtitle?: boolean
+  titleEn?: boolean
+  titleAr?: boolean
+  subtitleEn?: boolean
+  subtitleAr?: boolean
   mediaType?: boolean
   desktopMediaUrl?: boolean
   mobileMediaUrl?: boolean
   buttonText?: boolean
   buttonLink?: boolean
+  ctaTextEn?: boolean
+  ctaTextAr?: boolean
+  ctaLink?: boolean
   status?: boolean
   sortOrder?: boolean
   createdAt?: boolean
@@ -588,18 +763,25 @@ export type HomepageSectionSelectScalar = {
   sectionKey?: boolean
   title?: boolean
   subtitle?: boolean
+  titleEn?: boolean
+  titleAr?: boolean
+  subtitleEn?: boolean
+  subtitleAr?: boolean
   mediaType?: boolean
   desktopMediaUrl?: boolean
   mobileMediaUrl?: boolean
   buttonText?: boolean
   buttonLink?: boolean
+  ctaTextEn?: boolean
+  ctaTextAr?: boolean
+  ctaLink?: boolean
   status?: boolean
   sortOrder?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type HomepageSectionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "sectionKey" | "title" | "subtitle" | "mediaType" | "desktopMediaUrl" | "mobileMediaUrl" | "buttonText" | "buttonLink" | "status" | "sortOrder" | "createdAt" | "updatedAt", ExtArgs["result"]["homepageSection"]>
+export type HomepageSectionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "sectionKey" | "title" | "subtitle" | "titleEn" | "titleAr" | "subtitleEn" | "subtitleAr" | "mediaType" | "desktopMediaUrl" | "mobileMediaUrl" | "buttonText" | "buttonLink" | "ctaTextEn" | "ctaTextAr" | "ctaLink" | "status" | "sortOrder" | "createdAt" | "updatedAt", ExtArgs["result"]["homepageSection"]>
 
 export type $HomepageSectionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "HomepageSection"
@@ -609,11 +791,18 @@ export type $HomepageSectionPayload<ExtArgs extends runtime.Types.Extensions.Int
     sectionKey: string
     title: string
     subtitle: string | null
+    titleEn: string | null
+    titleAr: string | null
+    subtitleEn: string | null
+    subtitleAr: string | null
     mediaType: $Enums.HomepageMediaType
     desktopMediaUrl: string | null
     mobileMediaUrl: string | null
     buttonText: string | null
     buttonLink: string | null
+    ctaTextEn: string | null
+    ctaTextAr: string | null
+    ctaLink: string | null
     status: $Enums.HomepageSectionStatus
     sortOrder: number
     createdAt: Date
@@ -1045,11 +1234,18 @@ export interface HomepageSectionFieldRefs {
   readonly sectionKey: Prisma.FieldRef<"HomepageSection", 'String'>
   readonly title: Prisma.FieldRef<"HomepageSection", 'String'>
   readonly subtitle: Prisma.FieldRef<"HomepageSection", 'String'>
+  readonly titleEn: Prisma.FieldRef<"HomepageSection", 'String'>
+  readonly titleAr: Prisma.FieldRef<"HomepageSection", 'String'>
+  readonly subtitleEn: Prisma.FieldRef<"HomepageSection", 'String'>
+  readonly subtitleAr: Prisma.FieldRef<"HomepageSection", 'String'>
   readonly mediaType: Prisma.FieldRef<"HomepageSection", 'HomepageMediaType'>
   readonly desktopMediaUrl: Prisma.FieldRef<"HomepageSection", 'String'>
   readonly mobileMediaUrl: Prisma.FieldRef<"HomepageSection", 'String'>
   readonly buttonText: Prisma.FieldRef<"HomepageSection", 'String'>
   readonly buttonLink: Prisma.FieldRef<"HomepageSection", 'String'>
+  readonly ctaTextEn: Prisma.FieldRef<"HomepageSection", 'String'>
+  readonly ctaTextAr: Prisma.FieldRef<"HomepageSection", 'String'>
+  readonly ctaLink: Prisma.FieldRef<"HomepageSection", 'String'>
   readonly status: Prisma.FieldRef<"HomepageSection", 'HomepageSectionStatus'>
   readonly sortOrder: Prisma.FieldRef<"HomepageSection", 'Int'>
   readonly createdAt: Prisma.FieldRef<"HomepageSection", 'DateTime'>

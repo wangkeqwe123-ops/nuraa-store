@@ -1,11 +1,65 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import type { Locale } from "@/i18n/config";
-import { getBrandContent } from "@/lib/brand-content";
-import type { HomepageContentSection } from "@/features/homepage/homepage.repository";
 import { HomepageMedia } from "@/components/home/homepage-media";
+import {
+  localizeHomepageSection,
+  type HomepageContentSection,
+} from "@/features/homepage/homepage.repository";
+import type { Locale } from "@/i18n/config";
 
-export function HeroSection({ locale,section }: { locale: Locale;section:HomepageContentSection }) { const {hero}=getBrandContent(locale);const link=section.buttonLink.replace(/^\/en(?=\/)/,`/${locale}`)||"#collections";return <section className="relative min-h-[84svh] overflow-hidden bg-[#17251f] text-[#f7f3e9] lg:grid lg:min-h-[760px] lg:grid-cols-[.82fr_1.18fr]">
-  <div className="relative z-10 flex min-h-[84svh] items-end bg-gradient-to-t from-[#17251f] via-[#17251f]/90 to-transparent px-7 py-16 lg:min-h-[760px] lg:items-center lg:bg-[#17251f] lg:px-[clamp(3rem,7vw,8rem)]"><div className="max-w-5xl animate-rise"><p className="text-xs font-medium uppercase tracking-[.28em] text-[#d2ad66]">{hero.eyebrow}</p><h1 className="font-display mt-7 max-w-5xl text-[clamp(3.8rem,7vw,7.8rem)] font-medium leading-[.84] tracking-[-.035em]">{section.title}</h1><p className="mt-8 max-w-xl text-base font-light leading-8 text-white/68 lg:text-lg">{section.subtitle||hero.body}</p><div className="mt-10 flex flex-wrap gap-4"><Link href={link} className="inline-flex min-h-12 items-center gap-3 bg-[#f7f3e9] px-6 text-sm font-medium text-[#17251f] transition hover:bg-[#d2ad66]">{section.buttonText||hero.primary}<ArrowUpRight size={16}/></Link><Link href="#story" className="inline-flex min-h-12 items-center border border-white/28 px-6 text-sm font-medium text-white transition hover:border-white hover:bg-white/8">{hero.secondary}</Link></div></div></div>
-  <div className="absolute inset-0 lg:relative"><HomepageMedia section={section} alt={section.title} priority className="hero-slow-zoom"/><div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(23,37,31,.05),rgba(23,37,31,.65))] lg:bg-[linear-gradient(90deg,rgba(23,37,31,.45),transparent_22%)] rtl:lg:bg-[linear-gradient(270deg,rgba(23,37,31,.45),transparent_22%)]"/><div className="absolute bottom-6 end-6 hidden border border-white/28 bg-black/15 px-5 py-3 text-[10px] uppercase tracking-[.22em] text-white/80 backdrop-blur-md lg:block">Riyadh · Saudi Arabia</div></div>
-</section>; }
+export function HeroSection({
+  locale,
+  section,
+}: {
+  locale: Locale;
+  section: HomepageContentSection;
+}) {
+  const content = localizeHomepageSection(section, locale);
+  const title = locale === "ar" ? "فن العطر العربي" : "The Art of Arabian Fragrance";
+  const cta = locale === "ar" ? "اكتشفوا المجموعة" : "Explore Collection";
+  const link = content.ctaLink.replace(/^\/en(?=\/)/, `/${locale}`) || "#collections";
+
+  return (
+    <section
+      data-hero
+      className="bg-[#fbfaf7] px-4 py-6 text-[#17251f] sm:px-6 sm:py-8 lg:px-8 lg:py-0 xl:px-12"
+    >
+      <div className="mx-auto grid max-w-[1440px] overflow-hidden bg-[#f4f1ea] lg:h-[560px] lg:grid-cols-[45%_55%] lg:grid-rows-1">
+        <div
+          data-hero-media
+          className="relative order-1 aspect-[4/3] min-h-[280px] overflow-hidden bg-[#eee8dc] sm:aspect-[16/10] lg:col-start-2 lg:row-start-1 lg:h-full lg:min-h-0 lg:aspect-auto"
+        >
+          <HomepageMedia
+            section={section}
+            alt={title}
+            priority
+            quality={90}
+            sizes="(min-width: 1536px) 792px, (min-width: 1024px) 55vw, 100vw"
+            className="size-full object-contain p-3 sm:p-5 lg:p-7"
+          />
+        </div>
+
+        <div className="order-2 flex items-center px-6 py-12 sm:px-10 sm:py-14 lg:col-start-1 lg:row-start-1 lg:px-[clamp(3rem,6vw,6.5rem)] lg:py-12">
+          <div className="animate-rise max-w-[31rem]">
+            <p
+              className="text-sm font-semibold tracking-[0.28em] text-[#7b4d35]"
+              translate="no"
+            >
+              NURAA
+            </p>
+            <h1 className="font-display mt-5 max-w-[12ch] text-balance text-[clamp(2.65rem,11vw,4.25rem)] font-medium leading-[0.97] tracking-[-0.03em] lg:mt-6 lg:max-w-[11ch] lg:text-[clamp(3.25rem,4.2vw,4.75rem)] lg:leading-[0.94]">
+              {title}
+            </h1>
+            <Link
+              href={link}
+              className="mt-8 inline-flex min-h-12 items-center gap-3 border-b border-[#17251f] pb-1 text-sm font-medium transition-opacity duration-300 ease-out hover:opacity-60 lg:mt-10"
+            >
+              {cta}
+              <ArrowUpRight className="size-4" aria-hidden="true" />
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

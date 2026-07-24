@@ -29,7 +29,8 @@ async function main(){
     await db.productTranslation.update({where:{productId_locale:{productId:product.id,locale:"AR"}},data:{name:item.ar.name,shortDescription:item.ar.description,description:item.ar.description,benefits:item.ar.benefits,usage:item.ar.usage,metaTitle:`${item.ar.name} | NURAA`,metaDescription:item.ar.description}});
   }
   const homepageSections=[
-    {sectionKey:"hero_banner",title:"Luxury Arabian Home Fragrance",subtitle:"Fragrances made for generous homes, shared tables and the moments that stay with us.",desktopMediaUrl:"/images/brand-v2/hero-family.png",mobileMediaUrl:"/images/brand-v2/hero-family.png",buttonText:"Discover the collections",buttonLink:"#collections",sortOrder:10},
+    {sectionKey:"announcement_bar",title:"Complimentary delivery across KSA on orders over 250 SAR",titleEn:"Complimentary delivery across KSA on orders over 250 SAR",titleAr:"توصيل مجاني داخل المملكة للطلبات فوق 250 ر.س",sortOrder:-100},
+    {sectionKey:"hero_banner",title:"Luxury Arabian Home Fragrance",subtitle:"Fragrances made for generous homes, shared tables and the moments that stay with us.",titleEn:"Luxury Arabian Home Fragrance",titleAr:"عطور منزلية عربية فاخرة",subtitleEn:"Fragrances made for generous homes, shared tables and the moments that stay with us.",subtitleAr:"عطور صُممت للبيوت الكريمة والموائد المشتركة واللحظات التي تبقى معنا.",desktopMediaUrl:"/images/brand-v2/hero-family.png",mobileMediaUrl:"/images/brand-v2/hero-family.png",buttonText:"Discover the collections",buttonLink:"#collections",ctaTextEn:"Explore Collection",ctaTextAr:"اكتشفوا المجموعة",ctaLink:"#collections",sortOrder:10},
     {sectionKey:"brand_story",title:"The Essence of Arabian Homes",subtitle:"A story of Arabian hospitality, oud tradition and family moments.",desktopMediaUrl:"/images/brand-v2/essence-arabian-homes.png",mobileMediaUrl:"/images/brand-v2/essence-arabian-homes.png",buttonText:"Our story",buttonLink:"#story",sortOrder:20},
     {sectionKey:"collection_desert_oud",title:"Desert Oud",subtitle:"Oud · Cedarwood · Smoked Amber",desktopMediaUrl:"/images/brand-v2/collection-desert-oud.png",mobileMediaUrl:"/images/brand-v2/collection-desert-oud.png",buttonText:"Discover",buttonLink:"/en/products",sortOrder:30},
     {sectionKey:"collection_rose_garden",title:"Rose Garden",subtitle:"Taif Rose · Jasmine · Soft Musk",desktopMediaUrl:"/images/brand-v2/collection-rose-garden.png",mobileMediaUrl:"/images/brand-v2/collection-rose-garden.png",buttonText:"Discover",buttonLink:"/en/products",sortOrder:31},
@@ -39,7 +40,19 @@ async function main(){
     {sectionKey:"gift_wedding",title:"Wedding",subtitle:"A lasting scent for a new chapter.",desktopMediaUrl:"/images/brand-v2/essence-arabian-homes.png",mobileMediaUrl:"/images/brand-v2/essence-arabian-homes.png",buttonText:"Explore gifts",buttonLink:"/en/products",sortOrder:42},
     {sectionKey:"gift_new_home",title:"New Home",subtitle:"The first fragrance of a new place.",desktopMediaUrl:"/images/brand-v2/collection-rose-garden.png",mobileMediaUrl:"/images/brand-v2/collection-rose-garden.png",buttonText:"Explore gifts",buttonLink:"/en/products",sortOrder:43},
     {sectionKey:"journal_section",title:"The Journal",subtitle:"Stories of scent, place and the art of Arabian living.",desktopMediaUrl:"/images/brand-v2/ritual-afternoon.png",mobileMediaUrl:"/images/brand-v2/ritual-afternoon.png",buttonText:"Read the story",buttonLink:"#journal",sortOrder:50},
+    {sectionKey:"footer_brand",title:"NURAA",subtitle:"Luxury Arabian home fragrance, composed for the rituals and welcomes that shape a home.",titleEn:"NURAA",titleAr:"نُورا",subtitleEn:"Luxury Arabian home fragrance, composed for the rituals and welcomes that shape a home.",subtitleAr:"عطور منزلية عربية فاخرة صُممت لطقوس البيت ولحظات الترحيب.",buttonText:"Join the list",buttonLink:"mailto:hello@nuraa.sa?subject=NURAA%20Newsletter",ctaTextEn:"Join the list",ctaTextAr:"انضموا إلى القائمة",ctaLink:"mailto:hello@nuraa.sa?subject=NURAA%20Newsletter",sortOrder:1000},
   ];
-  for(const section of homepageSections){await db.homepageSection.upsert({where:{sectionKey:section.sectionKey},update:{},create:{...section,mediaType:"IMAGE",status:"ACTIVE"}});}
+  for(const section of homepageSections){
+    const localized={
+      titleEn:"titleEn" in section?section.titleEn:section.title,
+      titleAr:"titleAr" in section?section.titleAr:null,
+      subtitleEn:"subtitleEn" in section?section.subtitleEn:"subtitle" in section?section.subtitle:null,
+      subtitleAr:"subtitleAr" in section?section.subtitleAr:null,
+      ctaTextEn:"ctaTextEn" in section?section.ctaTextEn:"buttonText" in section?section.buttonText:null,
+      ctaTextAr:"ctaTextAr" in section?section.ctaTextAr:null,
+      ctaLink:"ctaLink" in section?section.ctaLink:"buttonLink" in section?section.buttonLink:null,
+    };
+    await db.homepageSection.upsert({where:{sectionKey:section.sectionKey},update:{},create:{...section,...localized,mediaType:"IMAGE",status:"ACTIVE"}});
+  }
 }
 main().finally(()=>db.$disconnect());

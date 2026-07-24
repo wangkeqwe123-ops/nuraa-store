@@ -29,6 +29,7 @@ export type ProductStatus = (typeof ProductStatus)[keyof typeof ProductStatus]
 export const ProductMediaType = {
   MAIN_IMAGE: 'MAIN_IMAGE',
   DETAIL_IMAGE: 'DETAIL_IMAGE',
+  LIFESTYLE_IMAGE: 'LIFESTYLE_IMAGE',
   VIDEO: 'VIDEO'
 } as const
 

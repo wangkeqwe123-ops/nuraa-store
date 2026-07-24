@@ -59,6 +59,11 @@ export type ProductMinAggregateOutputType = {
   reviewCount: number | null
   sortOrder: number | null
   fragranceFamily: string | null
+  size: string | null
+  burnTime: string | null
+  material: string | null
+  ingredients: string | null
+  careInstructions: string | null
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
@@ -79,6 +84,11 @@ export type ProductMaxAggregateOutputType = {
   reviewCount: number | null
   sortOrder: number | null
   fragranceFamily: string | null
+  size: string | null
+  burnTime: string | null
+  material: string | null
+  ingredients: string | null
+  careInstructions: string | null
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
@@ -99,6 +109,11 @@ export type ProductCountAggregateOutputType = {
   reviewCount: number
   sortOrder: number
   fragranceFamily: number
+  size: number
+  burnTime: number
+  material: number
+  ingredients: number
+  careInstructions: number
   createdAt: number
   updatedAt: number
   deletedAt: number
@@ -139,6 +154,11 @@ export type ProductMinAggregateInputType = {
   reviewCount?: true
   sortOrder?: true
   fragranceFamily?: true
+  size?: true
+  burnTime?: true
+  material?: true
+  ingredients?: true
+  careInstructions?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -159,6 +179,11 @@ export type ProductMaxAggregateInputType = {
   reviewCount?: true
   sortOrder?: true
   fragranceFamily?: true
+  size?: true
+  burnTime?: true
+  material?: true
+  ingredients?: true
+  careInstructions?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -179,6 +204,11 @@ export type ProductCountAggregateInputType = {
   reviewCount?: true
   sortOrder?: true
   fragranceFamily?: true
+  size?: true
+  burnTime?: true
+  material?: true
+  ingredients?: true
+  careInstructions?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -286,6 +316,11 @@ export type ProductGroupByOutputType = {
   reviewCount: number
   sortOrder: number
   fragranceFamily: string | null
+  size: string | null
+  burnTime: string | null
+  material: string | null
+  ingredients: string | null
+  careInstructions: string | null
   createdAt: Date
   updatedAt: Date
   deletedAt: Date | null
@@ -329,6 +364,11 @@ export type ProductWhereInput = {
   reviewCount?: Prisma.IntFilter<"Product"> | number
   sortOrder?: Prisma.IntFilter<"Product"> | number
   fragranceFamily?: Prisma.StringNullableFilter<"Product"> | string | null
+  size?: Prisma.StringNullableFilter<"Product"> | string | null
+  burnTime?: Prisma.StringNullableFilter<"Product"> | string | null
+  material?: Prisma.StringNullableFilter<"Product"> | string | null
+  ingredients?: Prisma.StringNullableFilter<"Product"> | string | null
+  careInstructions?: Prisma.StringNullableFilter<"Product"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Product"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Product"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Product"> | Date | string | null
@@ -357,6 +397,11 @@ export type ProductOrderByWithRelationInput = {
   reviewCount?: Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
   fragranceFamily?: Prisma.SortOrderInput | Prisma.SortOrder
+  size?: Prisma.SortOrderInput | Prisma.SortOrder
+  burnTime?: Prisma.SortOrderInput | Prisma.SortOrder
+  material?: Prisma.SortOrderInput | Prisma.SortOrder
+  ingredients?: Prisma.SortOrderInput | Prisma.SortOrder
+  careInstructions?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -388,6 +433,11 @@ export type ProductWhereUniqueInput = Prisma.AtLeast<{
   reviewCount?: Prisma.IntFilter<"Product"> | number
   sortOrder?: Prisma.IntFilter<"Product"> | number
   fragranceFamily?: Prisma.StringNullableFilter<"Product"> | string | null
+  size?: Prisma.StringNullableFilter<"Product"> | string | null
+  burnTime?: Prisma.StringNullableFilter<"Product"> | string | null
+  material?: Prisma.StringNullableFilter<"Product"> | string | null
+  ingredients?: Prisma.StringNullableFilter<"Product"> | string | null
+  careInstructions?: Prisma.StringNullableFilter<"Product"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Product"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Product"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Product"> | Date | string | null
@@ -416,6 +466,11 @@ export type ProductOrderByWithAggregationInput = {
   reviewCount?: Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
   fragranceFamily?: Prisma.SortOrderInput | Prisma.SortOrder
+  size?: Prisma.SortOrderInput | Prisma.SortOrder
+  burnTime?: Prisma.SortOrderInput | Prisma.SortOrder
+  material?: Prisma.SortOrderInput | Prisma.SortOrder
+  ingredients?: Prisma.SortOrderInput | Prisma.SortOrder
+  careInstructions?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -444,6 +499,11 @@ export type ProductScalarWhereWithAggregatesInput = {
   reviewCount?: Prisma.IntWithAggregatesFilter<"Product"> | number
   sortOrder?: Prisma.IntWithAggregatesFilter<"Product"> | number
   fragranceFamily?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
+  size?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
+  burnTime?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
+  material?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
+  ingredients?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
+  careInstructions?: Prisma.StringNullableWithAggregatesFilter<"Product"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Product"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Product"> | Date | string
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Product"> | Date | string | null
@@ -463,6 +523,11 @@ export type ProductCreateInput = {
   reviewCount?: number
   sortOrder?: number
   fragranceFamily?: string | null
+  size?: string | null
+  burnTime?: string | null
+  material?: string | null
+  ingredients?: string | null
+  careInstructions?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -491,6 +556,11 @@ export type ProductUncheckedCreateInput = {
   reviewCount?: number
   sortOrder?: number
   fragranceFamily?: string | null
+  size?: string | null
+  burnTime?: string | null
+  material?: string | null
+  ingredients?: string | null
+  careInstructions?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -517,6 +587,11 @@ export type ProductUpdateInput = {
   reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   fragranceFamily?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  burnTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  material?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ingredients?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  careInstructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -545,6 +620,11 @@ export type ProductUncheckedUpdateInput = {
   reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   fragranceFamily?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  burnTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  material?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ingredients?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  careInstructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -572,6 +652,11 @@ export type ProductCreateManyInput = {
   reviewCount?: number
   sortOrder?: number
   fragranceFamily?: string | null
+  size?: string | null
+  burnTime?: string | null
+  material?: string | null
+  ingredients?: string | null
+  careInstructions?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -591,6 +676,11 @@ export type ProductUpdateManyMutationInput = {
   reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   fragranceFamily?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  burnTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  material?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ingredients?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  careInstructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -611,6 +701,11 @@ export type ProductUncheckedUpdateManyInput = {
   reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   fragranceFamily?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  burnTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  material?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ingredients?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  careInstructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -641,6 +736,11 @@ export type ProductCountOrderByAggregateInput = {
   reviewCount?: Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
   fragranceFamily?: Prisma.SortOrder
+  size?: Prisma.SortOrder
+  burnTime?: Prisma.SortOrder
+  material?: Prisma.SortOrder
+  ingredients?: Prisma.SortOrder
+  careInstructions?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -670,6 +770,11 @@ export type ProductMaxOrderByAggregateInput = {
   reviewCount?: Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
   fragranceFamily?: Prisma.SortOrder
+  size?: Prisma.SortOrder
+  burnTime?: Prisma.SortOrder
+  material?: Prisma.SortOrder
+  ingredients?: Prisma.SortOrder
+  careInstructions?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -690,6 +795,11 @@ export type ProductMinOrderByAggregateInput = {
   reviewCount?: Prisma.SortOrder
   sortOrder?: Prisma.SortOrder
   fragranceFamily?: Prisma.SortOrder
+  size?: Prisma.SortOrder
+  burnTime?: Prisma.SortOrder
+  material?: Prisma.SortOrder
+  ingredients?: Prisma.SortOrder
+  careInstructions?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -892,6 +1002,11 @@ export type ProductCreateWithoutCategoryInput = {
   reviewCount?: number
   sortOrder?: number
   fragranceFamily?: string | null
+  size?: string | null
+  burnTime?: string | null
+  material?: string | null
+  ingredients?: string | null
+  careInstructions?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -918,6 +1033,11 @@ export type ProductUncheckedCreateWithoutCategoryInput = {
   reviewCount?: number
   sortOrder?: number
   fragranceFamily?: string | null
+  size?: string | null
+  burnTime?: string | null
+  material?: string | null
+  ingredients?: string | null
+  careInstructions?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -974,6 +1094,11 @@ export type ProductScalarWhereInput = {
   reviewCount?: Prisma.IntFilter<"Product"> | number
   sortOrder?: Prisma.IntFilter<"Product"> | number
   fragranceFamily?: Prisma.StringNullableFilter<"Product"> | string | null
+  size?: Prisma.StringNullableFilter<"Product"> | string | null
+  burnTime?: Prisma.StringNullableFilter<"Product"> | string | null
+  material?: Prisma.StringNullableFilter<"Product"> | string | null
+  ingredients?: Prisma.StringNullableFilter<"Product"> | string | null
+  careInstructions?: Prisma.StringNullableFilter<"Product"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Product"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Product"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"Product"> | Date | string | null
@@ -993,6 +1118,11 @@ export type ProductCreateWithoutCartItemsInput = {
   reviewCount?: number
   sortOrder?: number
   fragranceFamily?: string | null
+  size?: string | null
+  burnTime?: string | null
+  material?: string | null
+  ingredients?: string | null
+  careInstructions?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1020,6 +1150,11 @@ export type ProductUncheckedCreateWithoutCartItemsInput = {
   reviewCount?: number
   sortOrder?: number
   fragranceFamily?: string | null
+  size?: string | null
+  burnTime?: string | null
+  material?: string | null
+  ingredients?: string | null
+  careInstructions?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1061,6 +1196,11 @@ export type ProductUpdateWithoutCartItemsInput = {
   reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   fragranceFamily?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  burnTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  material?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ingredients?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  careInstructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1088,6 +1228,11 @@ export type ProductUncheckedUpdateWithoutCartItemsInput = {
   reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   fragranceFamily?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  burnTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  material?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ingredients?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  careInstructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1113,6 +1258,11 @@ export type ProductCreateWithoutOrderItemsInput = {
   reviewCount?: number
   sortOrder?: number
   fragranceFamily?: string | null
+  size?: string | null
+  burnTime?: string | null
+  material?: string | null
+  ingredients?: string | null
+  careInstructions?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1140,6 +1290,11 @@ export type ProductUncheckedCreateWithoutOrderItemsInput = {
   reviewCount?: number
   sortOrder?: number
   fragranceFamily?: string | null
+  size?: string | null
+  burnTime?: string | null
+  material?: string | null
+  ingredients?: string | null
+  careInstructions?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1181,6 +1336,11 @@ export type ProductUpdateWithoutOrderItemsInput = {
   reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   fragranceFamily?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  burnTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  material?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ingredients?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  careInstructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1208,6 +1368,11 @@ export type ProductUncheckedUpdateWithoutOrderItemsInput = {
   reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   fragranceFamily?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  burnTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  material?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ingredients?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  careInstructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1233,6 +1398,11 @@ export type ProductCreateWithoutReservationsInput = {
   reviewCount?: number
   sortOrder?: number
   fragranceFamily?: string | null
+  size?: string | null
+  burnTime?: string | null
+  material?: string | null
+  ingredients?: string | null
+  careInstructions?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1260,6 +1430,11 @@ export type ProductUncheckedCreateWithoutReservationsInput = {
   reviewCount?: number
   sortOrder?: number
   fragranceFamily?: string | null
+  size?: string | null
+  burnTime?: string | null
+  material?: string | null
+  ingredients?: string | null
+  careInstructions?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1301,6 +1476,11 @@ export type ProductUpdateWithoutReservationsInput = {
   reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   fragranceFamily?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  burnTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  material?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ingredients?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  careInstructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1328,6 +1508,11 @@ export type ProductUncheckedUpdateWithoutReservationsInput = {
   reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   fragranceFamily?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  burnTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  material?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ingredients?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  careInstructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1353,6 +1538,11 @@ export type ProductCreateWithoutAnalyticsEventsInput = {
   reviewCount?: number
   sortOrder?: number
   fragranceFamily?: string | null
+  size?: string | null
+  burnTime?: string | null
+  material?: string | null
+  ingredients?: string | null
+  careInstructions?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1380,6 +1570,11 @@ export type ProductUncheckedCreateWithoutAnalyticsEventsInput = {
   reviewCount?: number
   sortOrder?: number
   fragranceFamily?: string | null
+  size?: string | null
+  burnTime?: string | null
+  material?: string | null
+  ingredients?: string | null
+  careInstructions?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1421,6 +1616,11 @@ export type ProductUpdateWithoutAnalyticsEventsInput = {
   reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   fragranceFamily?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  burnTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  material?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ingredients?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  careInstructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1448,6 +1648,11 @@ export type ProductUncheckedUpdateWithoutAnalyticsEventsInput = {
   reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   fragranceFamily?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  burnTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  material?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ingredients?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  careInstructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1473,6 +1678,11 @@ export type ProductCreateWithoutDailyAnalyticsInput = {
   reviewCount?: number
   sortOrder?: number
   fragranceFamily?: string | null
+  size?: string | null
+  burnTime?: string | null
+  material?: string | null
+  ingredients?: string | null
+  careInstructions?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1500,6 +1710,11 @@ export type ProductUncheckedCreateWithoutDailyAnalyticsInput = {
   reviewCount?: number
   sortOrder?: number
   fragranceFamily?: string | null
+  size?: string | null
+  burnTime?: string | null
+  material?: string | null
+  ingredients?: string | null
+  careInstructions?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1541,6 +1756,11 @@ export type ProductUpdateWithoutDailyAnalyticsInput = {
   reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   fragranceFamily?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  burnTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  material?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ingredients?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  careInstructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1568,6 +1788,11 @@ export type ProductUncheckedUpdateWithoutDailyAnalyticsInput = {
   reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   fragranceFamily?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  burnTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  material?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ingredients?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  careInstructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1593,6 +1818,11 @@ export type ProductCreateWithoutTranslationsInput = {
   reviewCount?: number
   sortOrder?: number
   fragranceFamily?: string | null
+  size?: string | null
+  burnTime?: string | null
+  material?: string | null
+  ingredients?: string | null
+  careInstructions?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1620,6 +1850,11 @@ export type ProductUncheckedCreateWithoutTranslationsInput = {
   reviewCount?: number
   sortOrder?: number
   fragranceFamily?: string | null
+  size?: string | null
+  burnTime?: string | null
+  material?: string | null
+  ingredients?: string | null
+  careInstructions?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1661,6 +1896,11 @@ export type ProductUpdateWithoutTranslationsInput = {
   reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   fragranceFamily?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  burnTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  material?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ingredients?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  careInstructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1688,6 +1928,11 @@ export type ProductUncheckedUpdateWithoutTranslationsInput = {
   reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   fragranceFamily?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  burnTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  material?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ingredients?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  careInstructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1713,6 +1958,11 @@ export type ProductCreateWithoutMediaInput = {
   reviewCount?: number
   sortOrder?: number
   fragranceFamily?: string | null
+  size?: string | null
+  burnTime?: string | null
+  material?: string | null
+  ingredients?: string | null
+  careInstructions?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1740,6 +1990,11 @@ export type ProductUncheckedCreateWithoutMediaInput = {
   reviewCount?: number
   sortOrder?: number
   fragranceFamily?: string | null
+  size?: string | null
+  burnTime?: string | null
+  material?: string | null
+  ingredients?: string | null
+  careInstructions?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1781,6 +2036,11 @@ export type ProductUpdateWithoutMediaInput = {
   reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   fragranceFamily?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  burnTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  material?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ingredients?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  careInstructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1808,6 +2068,11 @@ export type ProductUncheckedUpdateWithoutMediaInput = {
   reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   fragranceFamily?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  burnTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  material?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ingredients?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  careInstructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1833,6 +2098,11 @@ export type ProductCreateManyCategoryInput = {
   reviewCount?: number
   sortOrder?: number
   fragranceFamily?: string | null
+  size?: string | null
+  burnTime?: string | null
+  material?: string | null
+  ingredients?: string | null
+  careInstructions?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1852,6 +2122,11 @@ export type ProductUpdateWithoutCategoryInput = {
   reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   fragranceFamily?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  burnTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  material?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ingredients?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  careInstructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1878,6 +2153,11 @@ export type ProductUncheckedUpdateWithoutCategoryInput = {
   reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   fragranceFamily?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  burnTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  material?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ingredients?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  careInstructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1904,6 +2184,11 @@ export type ProductUncheckedUpdateManyWithoutCategoryInput = {
   reviewCount?: Prisma.IntFieldUpdateOperationsInput | number
   sortOrder?: Prisma.IntFieldUpdateOperationsInput | number
   fragranceFamily?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  size?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  burnTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  material?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ingredients?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  careInstructions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2009,6 +2294,11 @@ export type ProductSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   reviewCount?: boolean
   sortOrder?: boolean
   fragranceFamily?: boolean
+  size?: boolean
+  burnTime?: boolean
+  material?: boolean
+  ingredients?: boolean
+  careInstructions?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
@@ -2038,6 +2328,11 @@ export type ProductSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   reviewCount?: boolean
   sortOrder?: boolean
   fragranceFamily?: boolean
+  size?: boolean
+  burnTime?: boolean
+  material?: boolean
+  ingredients?: boolean
+  careInstructions?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
@@ -2059,6 +2354,11 @@ export type ProductSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   reviewCount?: boolean
   sortOrder?: boolean
   fragranceFamily?: boolean
+  size?: boolean
+  burnTime?: boolean
+  material?: boolean
+  ingredients?: boolean
+  careInstructions?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
@@ -2080,12 +2380,17 @@ export type ProductSelectScalar = {
   reviewCount?: boolean
   sortOrder?: boolean
   fragranceFamily?: boolean
+  size?: boolean
+  burnTime?: boolean
+  material?: boolean
+  ingredients?: boolean
+  careInstructions?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
 }
 
-export type ProductOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slug" | "sku" | "categoryId" | "price" | "compareAtPrice" | "currency" | "stock" | "status" | "isFeatured" | "rating" | "reviewCount" | "sortOrder" | "fragranceFamily" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["product"]>
+export type ProductOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slug" | "sku" | "categoryId" | "price" | "compareAtPrice" | "currency" | "stock" | "status" | "isFeatured" | "rating" | "reviewCount" | "sortOrder" | "fragranceFamily" | "size" | "burnTime" | "material" | "ingredients" | "careInstructions" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["product"]>
 export type ProductInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   category?: boolean | Prisma.Product$categoryArgs<ExtArgs>
   translations?: boolean | Prisma.Product$translationsArgs<ExtArgs>
@@ -2131,6 +2436,11 @@ export type $ProductPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     reviewCount: number
     sortOrder: number
     fragranceFamily: string | null
+    size: string | null
+    burnTime: string | null
+    material: string | null
+    ingredients: string | null
+    careInstructions: string | null
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
@@ -2579,6 +2889,11 @@ export interface ProductFieldRefs {
   readonly reviewCount: Prisma.FieldRef<"Product", 'Int'>
   readonly sortOrder: Prisma.FieldRef<"Product", 'Int'>
   readonly fragranceFamily: Prisma.FieldRef<"Product", 'String'>
+  readonly size: Prisma.FieldRef<"Product", 'String'>
+  readonly burnTime: Prisma.FieldRef<"Product", 'String'>
+  readonly material: Prisma.FieldRef<"Product", 'String'>
+  readonly ingredients: Prisma.FieldRef<"Product", 'String'>
+  readonly careInstructions: Prisma.FieldRef<"Product", 'String'>
   readonly createdAt: Prisma.FieldRef<"Product", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Product", 'DateTime'>
   readonly deletedAt: Prisma.FieldRef<"Product", 'DateTime'>

@@ -1,48 +1,48 @@
-# Admin Page Overrides
+# NURAA Admin Overrides
 
-> **PROJECT:** NURAA
-> **Generated:** 2026-07-17 13:45:09
-> **Page Type:** Dashboard / Data View
+The Admin is an operations product, not an editorial storefront. It shares the
+brand palette but prioritizes speed, clarity, and predictable task completion.
 
-> ⚠️ **IMPORTANT:** Rules in this file **override** the Master file (`design-system/MASTER.md`).
-> Only deviations from the Master are documented here. For all other rules, refer to the Master.
+## Layout
 
----
+- Persistent desktop sidebar, compact top navigation, fluid main content.
+- Content width up to 1600px; 24–32px page gutters.
+- Page header contains one title, optional supporting text, and one primary action.
+- Use a four-column KPI grid at wide widths, two columns on tablet, one on mobile.
 
-## Page-Specific Rules
+## Typography
 
-### Layout Overrides
+- Use `Outfit` for all interface text and headings.
+- Page title: 24–30px, 600 weight.
+- Section title: 16–18px, 600 weight.
+- Table and form copy: 13–15px.
+- Avoid display serif, exaggerated tracking, and decorative uppercase labels.
 
-- **Max Width:** 1400px or full-width
-- **Grid:** 12-column grid for data flexibility
-- **Sections:** 1. Hero (product + live preview or status), 2. Key metrics/indicators, 3. How it works, 4. CTA (Start trial / Contact)
+## Surfaces and controls
 
-### Spacing Overrides
+- Canvas: warm ivory; sidebar: ink; cards: white or very light ivory.
+- Cards use a hairline border and no ambient shadow.
+- Controls use 8px radius; dialogs and menus may use 10–12px.
+- Active navigation uses a filled gold state, not a colored side stripe.
+- Destructive actions are separated from routine actions and require confirmation.
 
-- **Content Density:** High — optimize for information display
+## Data presentation
 
-### Typography Overrides
+- Metrics are compact and comparison-led; do not enlarge zeros as hero content.
+- Charts must include labels, accessible color contrast, and a clear empty state.
+- Tables keep headers visible, align numeric data, and expose primary row actions.
+- Loading uses skeletons; errors explain the problem and next action.
 
-- No overrides — use Master typography
+## Forms
 
-### Color Overrides
+- Group fields by operator task: basics, media, pricing/inventory, publishing.
+- Required fields are explicit. Validation appears adjacent to the field.
+- Sticky save actions are allowed on long product forms.
+- Media uploads show progress, file requirements, preview, replacement, and
+  specific failure reasons.
 
-- **Strategy:** Dark or neutral. Status colors (green/amber/red). Data-dense but scannable.
+## Motion
 
-### Component Overrides
-
-- Avoid: Leave UI frozen with no feedback
-
----
-
-## Page-Specific Components
-
-- No unique components for this page
-
----
-
-## Recommendations
-
-- Effects: Drill-down expand animations, breadcrumb click transitions, smooth detail reveal, level change smooth, data reload animation
-- Animation: Use skeleton screens or spinners
-- CTA Placement: Primary CTA in nav + After metrics
+- Only use short 150–220ms state transitions.
+- Do not animate metrics or navigation on first load.
+- Respect reduced-motion preferences.

@@ -38,6 +38,11 @@ export type StorefrontProduct = {
   currency: string;
   stock: number;
   fragranceFamily: string;
+  size: string;
+  burnTime: string;
+  material: string;
+  ingredients: string;
+  careInstructions: string;
   image: string;
   media: StorefrontMedia[];
   tag?: "new" | "bestseller";
@@ -88,6 +93,11 @@ function mapProduct(product: ProductRow): StorefrontProduct {
     currency: product.currency,
     stock: product.stock,
     fragranceFamily: product.fragranceFamily ?? en?.scentFamily ?? "",
+    size: product.size ?? "",
+    burnTime: product.burnTime ?? "",
+    material: product.material ?? "",
+    ingredients: product.ingredients ?? "",
+    careInstructions: product.careInstructions ?? "",
     image: primary?.url ?? "/images/products/placeholder.jpg",
     media,
     tag: product.isFeatured ? "bestseller" : undefined,
@@ -107,23 +117,53 @@ export async function listStorefrontProducts() {
   return rows.map(mapProduct);
 }
 
+export async function listFeaturedStorefrontProducts(limit = 8) {
+  const rows = await db.product.findMany({
+    where: { status: "ACTIVE", deletedAt: null, isFeatured: true },
+    include,
+    orderBy: [{ sortOrder: "asc" }, { createdAt: "desc" }],
+    take: limit,
+  });
+  return rows.map(mapProduct);
+}
+
 export async function getStorefrontProduct(slug: string) {
   const row = await db.product.findFirst({ where: { slug, status: "ACTIVE", deletedAt: null }, include });
   return row ? mapProduct(row) : null;
 }
 
 export async function listRecommendedProducts(productId: string, limit = 3) {
-  const source = await db.product.findUnique({ where: { id: productId }, select: { categoryId: true } });
+  const source = await db.product.findUnique({
+    where: { id: productId },
+    select: { categoryId: true, fragranceFamily: true },
+  });
   const rows = await db.product.findMany({
     where: {
       id: { not: productId },
       status: "ACTIVE",
       deletedAt: null,
-      ...(source?.categoryId ? { categoryId: source.categoryId } : {}),
+      OR: [
+        ...(source?.fragranceFamily ? [{ fragranceFamily: source.fragranceFamily }] : []),
+        ...(source?.categoryId ? [{ categoryId: source.categoryId }] : []),
+        { isFeatured: true },
+      ],
     },
     include,
-    orderBy: [{ isFeatured: "desc" }, { sortOrder: "asc" }],
-    take: limit,
+    orderBy: [{ isFeatured: "desc" }, { sortOrder: "asc" }, { createdAt: "desc" }],
+    take: limit * 3,
   });
-  return rows.map(mapProduct);
+  return rows
+    .sort((left, right) => {
+      const leftScore =
+        Number(Boolean(source?.fragranceFamily && left.fragranceFamily === source.fragranceFamily)) * 4
+        + Number(Boolean(source?.categoryId && left.categoryId === source.categoryId)) * 2
+        + Number(left.isFeatured);
+      const rightScore =
+        Number(Boolean(source?.fragranceFamily && right.fragranceFamily === source.fragranceFamily)) * 4
+        + Number(Boolean(source?.categoryId && right.categoryId === source.categoryId)) * 2
+        + Number(right.isFeatured);
+      return rightScore - leftScore;
+    })
+    .slice(0, limit)
+    .map(mapProduct);
 }

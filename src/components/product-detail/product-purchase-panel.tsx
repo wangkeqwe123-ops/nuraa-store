@@ -10,8 +10,8 @@ export function ProductPurchasePanel({ productId, stock, locale }: { productId: 
   const [message, setMessage] = useState("");
   const [pending, setPending] = useState(false);
   const labels = locale === "ar"
-    ? { quantity: "الكمية", add: "أضف إلى الحقيبة", adding: "جارٍ الإضافة", out: "غير متوفر حالياً", added: "تمت الإضافة إلى الحقيبة.", error: "تعذر إضافة المنتج. حاول مرة أخرى." }
-    : { quantity: "Quantity", add: "Add to bag", adding: "Adding", out: "Currently unavailable", added: "Added to your bag.", error: "We could not add this item. Please try again." };
+    ? { quantity: "الكمية", add: "أضف إلى الحقيبة", adding: "جارٍ الإضافة", out: "غير متوفر حالياً", added: "تمت الإضافة إلى الحقيبة.", error: "تعذر إضافة المنتج. حاول مرة أخرى.", shipping: "توصيل متتبع داخل السعودية خلال 2–5 أيام عمل" }
+    : { quantity: "Quantity", add: "Add to bag", adding: "Adding", out: "Currently unavailable", added: "Added to your bag.", error: "We could not add this item. Please try again.", shipping: "Tracked Saudi delivery · Estimated 2–5 business days" };
 
   async function addToBag() {
     setPending(true); setMessage("");
@@ -37,6 +37,7 @@ export function ProductPurchasePanel({ productId, stock, locale }: { productId: 
       </div>
       <Button type="button" disabled={stock < 1 || pending} onClick={addToBag} className="h-14 w-full rounded-none bg-black text-xs uppercase tracking-[.2em] text-white hover:bg-black/80">{stock > 0 ? pending ? labels.adding : labels.add : labels.out}</Button>
       {message ? <p className="mt-3 text-center text-xs text-black/50" role="status">{message}</p> : null}
+      <p className="mt-4 text-center text-xs leading-5 text-black/48">{labels.shipping}</p>
     </div>
   );
 }

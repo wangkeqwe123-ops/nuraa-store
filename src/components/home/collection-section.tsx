@@ -1,12 +1,73 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import { HomepageMedia } from "@/components/home/homepage-media";
+import {
+  localizeHomepageSection,
+  type HomepageContentSection,
+} from "@/features/homepage/homepage.repository";
 import type { Locale } from "@/i18n/config";
 import { getBrandContent } from "@/lib/brand-content";
-import { Reveal } from "@/components/home/reveal";
-import type { HomepageContentSection } from "@/features/homepage/homepage.repository";
-import { HomepageMedia } from "@/components/home/homepage-media";
 
-export function CollectionSection({locale,sections}:{locale:Locale;sections:HomepageContentSection[]}) { const {collections}=getBrandContent(locale); return <section id="collections" className="scroll-mt-24 bg-[#eee8dc] px-5 py-28 text-[#1b1d1a] lg:px-10 lg:py-40"><div className="mx-auto max-w-[1500px]"><Reveal>
-  <div className="mb-14 grid gap-7 md:grid-cols-2 md:items-end"><div><p className="text-xs font-medium uppercase tracking-[.24em] text-[#7b4d35]">{collections.eyebrow}</p><h2 className="font-display mt-4 text-6xl font-medium leading-[.9] md:text-8xl">{collections.title}</h2></div><p className="max-w-lg text-lg leading-8 text-black/60 md:justify-self-end">{collections.body}</p></div>
-  <div className="flex flex-col gap-3 lg:h-[700px] lg:flex-row">{sections.map((section,i)=>{const body=collections.items[i]?.[2]||section.subtitle;const link=section.buttonLink.replace(/^\/en(?=\/)/,`/${locale}`)||`/${locale}/products`;return <Link href={link} key={section.id} className="collection-panel group relative min-h-[540px] overflow-hidden bg-[#d9d1c4] lg:min-h-0"><HomepageMedia section={section} alt={section.title} className="transition duration-[1400ms] ease-out group-hover:scale-[1.035]"/><div className="absolute inset-0 bg-gradient-to-t from-black/78 via-black/5 to-transparent"/><div className="absolute inset-x-0 bottom-0 p-7 text-white lg:p-9"><p className="text-[10px] font-medium uppercase tracking-[.2em] text-white/64">{section.subtitle}</p><div className="mt-3 flex items-end justify-between gap-6"><div><h3 className="font-display text-4xl font-medium lg:text-5xl">{section.title}</h3><p className="mt-3 max-w-md text-sm leading-6 text-white/70 opacity-100 transition duration-500 lg:translate-y-3 lg:opacity-0 lg:group-hover:translate-y-0 lg:group-hover:opacity-100 lg:group-focus-visible:translate-y-0 lg:group-focus-visible:opacity-100">{body}</p></div><span className="grid size-12 shrink-0 place-items-center rounded-full border border-white/60 bg-white/10 backdrop-blur-md transition duration-500 group-hover:bg-white group-hover:text-black"><ArrowUpRight size={18}/></span></div></div></Link>})}</div>
-</Reveal></div></section>; }
+export function CollectionSection({
+  locale,
+  sections,
+}: {
+  locale: Locale;
+  sections: HomepageContentSection[];
+}) {
+  const { collections } = getBrandContent(locale);
+
+  return (
+    <section id="collections" className="scroll-mt-24 bg-[#eee8dc] px-5 py-20 text-[#17251f] lg:px-10 lg:py-28">
+      <div className="mx-auto max-w-[1500px]">
+        <div className="mb-12 grid gap-6 md:grid-cols-[1.1fr_.9fr] md:items-end lg:mb-16">
+          <h2 className="font-display max-w-[12ch] text-balance text-5xl font-medium leading-[0.94] tracking-[-0.025em] md:text-7xl">
+            {collections.title}
+          </h2>
+          <p className="max-w-[54ch] text-pretty text-base leading-7 text-[#17251f]/72 md:justify-self-end lg:text-lg lg:leading-8">
+            {collections.body}
+          </p>
+        </div>
+
+        <div className="grid gap-3 lg:grid-cols-[1.16fr_.92fr_.92fr]">
+          {sections.map((section, index) => {
+            const item = collections.items[index];
+            const content = localizeHomepageSection(section, locale);
+            const title = locale === "ar" && !section.titleAr && item ? item[0] : content.title;
+            const notes = locale === "ar" && !section.subtitleAr && item ? item[1] : content.subtitle;
+            const story = item?.[2] || content.subtitle;
+            const link = content.ctaLink.replace(/^\/en(?=\/)/, `/${locale}`) || `/${locale}/products`;
+            const cta = content.ctaText || (locale === "ar" ? "اكتشفوا المجموعة" : "Explore collection");
+
+            return (
+              <Link
+                href={link}
+                key={section.id}
+                aria-label={`${cta}: ${title}`}
+                className="group relative min-h-[500px] overflow-hidden bg-[#d9d1c4] sm:min-h-[580px] lg:min-h-[660px]"
+              >
+                <HomepageMedia
+                  section={section}
+                  alt={title}
+                  sizes="(max-width:1023px) 100vw,34vw"
+                  className="transition duration-700 ease-out group-hover:scale-[1.025] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/82 via-black/10 to-transparent" />
+                <div className="absolute inset-x-0 bottom-0 p-7 text-white lg:p-9">
+                  <p className="text-xs leading-5 text-white/72">{notes}</p>
+                  <h3 className="font-display mt-2 text-balance text-4xl font-medium leading-none lg:text-5xl">
+                    {title}
+                  </h3>
+                  <p className="mt-4 max-w-[38ch] text-sm leading-6 text-white/76">{story}</p>
+                  <span className="mt-7 inline-flex min-h-11 items-center gap-2 border-b border-white/65 pb-1 text-sm font-medium transition-colors duration-300 group-hover:border-white">
+                    {cta}<ArrowUpRight size={16} aria-hidden="true" />
+                  </span>
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}

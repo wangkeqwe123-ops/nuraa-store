@@ -3,15 +3,44 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import type { Locale } from "@/i18n/config";
 import type { StorefrontProduct } from "@/features/catalog/catalog.repository";
-import { Badge } from "@/components/ui/badge";
 
-export function ProductCard({ product, locale, priority=false }: { product: StorefrontProduct; locale: Locale; priority?: boolean }) {
-  const t=product[locale];
-  return <article className="luxury-card group bg-[#f8f4eb]">
-    <Link href={`/${locale}/products/${product.slug}`} className="relative block aspect-[4/5] overflow-hidden bg-[#e9e0d1]">
-      <Image src={product.image} alt={t.name} fill priority={priority} className="object-cover transition duration-700 group-hover:scale-[1.045]" sizes="(max-width:768px) 88vw,(max-width:1200px) 45vw,30vw"/>
-      {product.tag&&<Badge className="absolute start-4 top-4 rounded-none border-0 bg-[#fbfaf6] px-3 py-1.5 text-[10px] uppercase tracking-[.16em] text-[#1f342b]">{locale==="ar"?"الأكثر مبيعاً":"Bestseller"}</Badge>}
-    </Link>
-    <div className="p-5"><p className="text-[10px] font-medium uppercase tracking-[.2em] text-[#7b4d35]">{t.scentFamily||t.category}</p><h3 className="font-display mt-2 text-3xl font-semibold text-[#1f342b]">{t.name}</h3><p className="mt-2 line-clamp-1 text-sm text-[#1f342b]/55">{[...t.topNotes,...t.heartNotes,...t.baseNotes].slice(0,3).join(" · ")||t.description}</p><div className="mt-5 flex items-center justify-between border-t border-[#1f342b]/12 pt-4"><p className="text-sm font-semibold text-[#1f342b]">{product.price} SAR</p><Link href={`/${locale}/products/${product.slug}`} className="flex min-h-11 items-center gap-1 text-[11px] font-semibold uppercase tracking-[.14em] text-[#1f342b]">{locale==="ar"?"اكتشفوا":"Discover"}<ArrowUpRight size={14}/></Link></div></div>
-  </article>;
+export function ProductCard({ product, locale, priority = false }: { product: StorefrontProduct; locale: Locale; priority?: boolean }) {
+  const copy = product[locale];
+  const notes = [...copy.topNotes, ...copy.heartNotes, ...copy.baseNotes].slice(0, 3).join(" · ");
+
+  return (
+    <article className="group">
+      <Link href={`/${locale}/products/${product.slug}`} className="relative block aspect-[4/5] overflow-hidden bg-[#ece8df]">
+        <Image
+          src={product.image}
+          alt={copy.name}
+          fill
+          priority={priority}
+          className="object-cover transition duration-700 ease-out group-hover:scale-[1.025] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+          sizes="(max-width:768px) 92vw,(max-width:1200px) 46vw,31vw"
+        />
+        {product.tag ? (
+          <span className="absolute start-4 top-4 bg-[#fbfaf7] px-3 py-1.5 text-[10px] font-semibold uppercase tracking-[.12em] text-[#17251f]">
+            {locale === "ar" ? "الأكثر مبيعاً" : "Bestseller"}
+          </span>
+        ) : null}
+        <span className="absolute inset-x-0 bottom-0 flex translate-y-full items-center justify-between bg-[#17251f] px-5 py-4 text-sm text-white transition-transform duration-300 ease-out group-hover:translate-y-0 group-focus-within:translate-y-0 motion-reduce:transition-none">
+          {locale === "ar" ? "اكتشفوا العطر" : "Discover the fragrance"}
+          <ArrowUpRight aria-hidden="true" />
+        </span>
+      </Link>
+      <div className="pt-5">
+        <div className="flex items-start justify-between gap-5">
+          <div className="min-w-0">
+            <p className="text-xs font-medium text-[#7b4d35]">{copy.scentFamily || copy.category}</p>
+            <h2 className="font-display mt-1 text-[clamp(1.75rem,2.4vw,2.35rem)] font-semibold leading-tight text-[#17251f]">
+              <Link href={`/${locale}/products/${product.slug}`}>{copy.name}</Link>
+            </h2>
+          </div>
+          <p className="shrink-0 pt-1 text-sm font-semibold text-[#17251f]">{product.price.toLocaleString()} SAR</p>
+        </div>
+        <p className="mt-2 min-h-6 text-sm text-[#17251f]/62">{notes || copy.description}</p>
+      </div>
+    </article>
+  );
 }
