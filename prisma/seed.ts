@@ -17,6 +17,16 @@ async function main(){
   const email=(process.env.ADMIN_EMAIL??"admin@nuraa.sa").toLowerCase();
   const password=process.env.ADMIN_PASSWORD??"change-this-before-production";
   await db.adminUser.upsert({where:{email},update:{isActive:true},create:{email,name:"Nuraa Admin",passwordHash:await hash(password,12)}});
+  await db.siteSetting.upsert({
+    where:{id:"default"},
+    update:{},
+    create:{
+      id:"default",
+      whatsappNumber:process.env.WHATSAPP_NUMBER??"",
+      whatsappMessageTemplate:"Hello NURAA, I would like to know more about your fragrances.",
+      supportEmail:"hello@nuraa.sa",
+    },
+  });
   for(const [index,item] of products.entries()){
     const categorySlug=item.en.category.toLowerCase().replace(/[^a-z0-9]+/g,"-");
     const category=await db.category.upsert({where:{slug:categorySlug},update:{},create:{slug:categorySlug,translations:{create:[{locale:"EN",name:item.en.category},{locale:"AR",name:item.ar.category}]}}});

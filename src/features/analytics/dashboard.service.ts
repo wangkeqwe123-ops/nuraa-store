@@ -36,8 +36,8 @@ export async function getDashboardData(range: RangeKey) {
     const date = new Date(start.getTime() + index * 86_400_000);
     trend.set(date.toISOString().slice(0, 10), { label: range === "today" ? "Today" : date.toLocaleDateString("en", { month: "short", day: "numeric", timeZone: "Asia/Riyadh" }), revenue: 0, orders: new Set(), visitors: new Set() });
   }
-  const channels = new Map<string, { visits: Set<string>; orders: Set<string>; revenue: number }>();
-  const products = new Map<string, { id: string; name: string; slug: string; views: number; carts: number; orders: number; revenue: number }>();
+  const channels = new Map<string, { visits: Set<string>; orders: Set<string>; whatsappClicks: number; revenue: number }>();
+  const products = new Map<string, { id: string; name: string; slug: string; views: number; carts: number; whatsappClicks: number; orders: number; revenue: number }>();
   for (const event of events) {
     const day = event.occurredAt.toLocaleDateString("en-CA", { timeZone: "Asia/Riyadh" });
     const daily = trend.get(day);
@@ -46,23 +46,25 @@ export async function getDashboardData(range: RangeKey) {
       if (event.eventType === "PURCHASE") { if (event.orderReference) daily.orders.add(event.orderReference); daily.revenue += Number(event.revenue ?? 0); }
     }
     const channelName = event.trafficSource?.channel ?? "DIRECT";
-    if (!channels.has(channelName)) channels.set(channelName, { visits: new Set(), orders: new Set(), revenue: 0 });
+    if (!channels.has(channelName)) channels.set(channelName, { visits: new Set(), orders: new Set(), whatsappClicks: 0, revenue: 0 });
     const channel = channels.get(channelName)!;
     if (event.eventType === "PAGE_VIEW") channel.visits.add(event.sessionId);
+    if (event.eventType === "WHATSAPP_CLICK") channel.whatsappClicks++;
     if (event.eventType === "PURCHASE") { if (event.orderReference) channel.orders.add(event.orderReference); channel.revenue += Number(event.revenue ?? 0); }
     if (event.product) {
-      if (!products.has(event.product.id)) products.set(event.product.id, { id: event.product.id, name: event.product.translations[0]?.name ?? event.product.slug, slug: event.product.slug, views: 0, carts: 0, orders: 0, revenue: 0 });
+      if (!products.has(event.product.id)) products.set(event.product.id, { id: event.product.id, name: event.product.translations[0]?.name ?? event.product.slug, slug: event.product.slug, views: 0, carts: 0, whatsappClicks: 0, orders: 0, revenue: 0 });
       const product = products.get(event.product.id)!;
       if (event.eventType === "PRODUCT_VIEW") product.views++;
       if (event.eventType === "ADD_TO_CART") product.carts++;
+      if (event.eventType === "WHATSAPP_CLICK") product.whatsappClicks++;
       if (event.eventType === "PURCHASE") { product.orders++; product.revenue += Number(event.revenue ?? 0); }
     }
   }
   return {
     range,
-    kpis: { revenue: sales, orders, visitors, conversion: visitors ? orders / visitors * 100 : 0, aov: orders ? sales / orders : 0, products: productCount },
+    kpis: { revenue: sales, orders, visitors, whatsappClicks: events.filter((event) => event.eventType === "WHATSAPP_CLICK").length, conversion: visitors ? orders / visitors * 100 : 0, aov: orders ? sales / orders : 0, products: productCount },
     trend: [...trend.values()].map((item) => ({ label: item.label, revenue: item.revenue, orders: item.orders.size, visitors: item.visitors.size })),
-    channels: ["TIKTOK", "FACEBOOK", "GOOGLE", "DIRECT"].map((channelName) => { const channel = channels.get(channelName); const visits = channel?.visits.size ?? 0; const channelOrders = channel?.orders.size ?? 0; return { channel: channelName, visits, orders: channelOrders, revenue: channel?.revenue ?? 0, conversion: visits ? channelOrders / visits * 100 : 0 }; }),
+    channels: ["TIKTOK", "FACEBOOK", "GOOGLE", "DIRECT"].map((channelName) => { const channel = channels.get(channelName); const visits = channel?.visits.size ?? 0; const channelOrders = channel?.orders.size ?? 0; return { channel: channelName, visits, orders: channelOrders, whatsappClicks: channel?.whatsappClicks ?? 0, revenue: channel?.revenue ?? 0, conversion: visits ? channelOrders / visits * 100 : 0 }; }),
     funnel: { pageViews: events.filter((event) => event.eventType === "PAGE_VIEW").length, productViews: events.filter((event) => event.eventType === "PRODUCT_VIEW").length, addToCarts: events.filter((event) => event.eventType === "ADD_TO_CART").length, checkoutStarts: events.filter((event) => event.eventType === "CHECKOUT_START").length, purchases: new Set(events.filter((event) => event.eventType === "PURCHASE").map((event) => event.orderReference).filter(Boolean)).size },
     topProducts: [...products.values()].sort((a, b) => b.revenue - a.revenue || b.views - a.views).slice(0, 6),
   };

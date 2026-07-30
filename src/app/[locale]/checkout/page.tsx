@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { CheckoutPage } from "@/components/checkout/checkout-page";
+import { getSiteSettings } from "@/features/site-settings/site-settings.repository";
 import { isLocale } from "@/i18n/config";
 
 export default async function Page({ params }: { params: Promise<{ locale: string }> }) {
@@ -11,12 +12,15 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
     250,
   );
   const taxRate = environmentNumber("STORE_TAX_RATE", 0);
+  const siteSettings = await getSiteSettings();
   return (
     <CheckoutPage
       locale={locale}
       shippingFee={shippingFee}
       freeShippingThreshold={freeShippingThreshold}
       taxRate={taxRate}
+      whatsappNumber={siteSettings.whatsappNumber}
+      whatsappMessageTemplate={siteSettings.whatsappMessageTemplate}
     />
   );
 }

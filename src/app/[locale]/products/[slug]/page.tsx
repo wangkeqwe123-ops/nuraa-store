@@ -12,6 +12,7 @@ import { ProductPurchasePanel } from "@/components/product-detail/product-purcha
 import { ProductStorySection } from "@/components/product-detail/product-story-section";
 import { RecommendedProducts } from "@/components/product-detail/recommended-products";
 import { getStorefrontProduct, listRecommendedProducts } from "@/features/catalog/catalog.repository";
+import { getSiteSettings } from "@/features/site-settings/site-settings.repository";
 import { isLocale } from "@/i18n/config";
 
 export const dynamic = "force-dynamic";
@@ -35,7 +36,10 @@ export default async function ProductPage({ params }: { params: Promise<{ locale
   const product = await getStorefrontProduct(slug);
   if (!product) notFound();
 
-  const recommended = await listRecommendedProducts(product.id);
+  const [recommended, siteSettings] = await Promise.all([
+    listRecommendedProducts(product.id),
+    getSiteSettings(),
+  ]);
   const copy = product[locale];
   const alternateName = locale === "en" ? product.ar.name : product.en.name;
   const editorialMedia =
@@ -87,7 +91,16 @@ export default async function ProductPage({ params }: { params: Promise<{ locale
               <div className="flex items-baseline gap-3"><span className="text-xl font-medium">{product.price.toLocaleString()} {product.currency}</span>{product.compareAtPrice ? <span className="text-sm text-black/35 line-through">{product.compareAtPrice.toLocaleString()} {product.currency}</span> : null}</div>
               <span className={`text-xs uppercase tracking-[.12em] ${product.stock > 0 ? "text-emerald-800" : "text-black/40"}`}>{stockLabel}</span>
             </div>
-            <ProductPurchasePanel productId={product.id} stock={product.stock} locale={locale} />
+            <ProductPurchasePanel
+              productId={product.id}
+              productName={copy.name}
+              price={product.price}
+              currency={product.currency}
+              stock={product.stock}
+              locale={locale}
+              whatsappNumber={siteSettings.whatsappNumber}
+              whatsappMessageTemplate={siteSettings.whatsappMessageTemplate}
+            />
           </div>
         </div>
       </section>

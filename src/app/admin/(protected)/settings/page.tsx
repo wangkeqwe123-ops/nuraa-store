@@ -1,2 +1,27 @@
-import { Settings } from "lucide-react"; import { ComingSoon } from "@/components/admin/coming-soon";
-export default function Page(){return <ComingSoon title="Settings" description="Configure store details, team access and integrations." icon={Settings}/>}
+import { PageHeader } from "@/components/admin/page-header";
+import {
+  DEFAULT_WHATSAPP_MESSAGE,
+  getSiteSettings,
+} from "@/features/site-settings/site-settings.repository";
+import { SiteSettingsForm } from "./site-settings-form";
+
+export default async function SettingsPage() {
+  const settings = await getSiteSettings();
+
+  return (
+    <>
+      <PageHeader
+        eyebrow="Store configuration"
+        title="Settings"
+        description="Manage the customer contact details used across the NURAA storefront."
+      />
+      <SiteSettingsForm
+        whatsappNumber={settings.whatsappNumber}
+        whatsappMessageTemplate={
+          settings.whatsappMessageTemplate || DEFAULT_WHATSAPP_MESSAGE
+        }
+        supportEmail={settings.supportEmail}
+      />
+    </>
+  );
+}

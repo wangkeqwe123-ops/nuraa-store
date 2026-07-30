@@ -8,6 +8,7 @@ import { JournalSection } from "@/components/home/journal-section";
 import { TrustSection } from "@/components/home/trust-section";
 import { listFeaturedStorefrontProducts } from "@/features/catalog/catalog.repository";
 import { listHomepageSections } from "@/features/homepage/homepage.repository";
+import { getSiteSettings } from "@/features/site-settings/site-settings.repository";
 import { isLocale } from "@/i18n/config";
 
 export const dynamic = "force-dynamic";
@@ -20,9 +21,10 @@ export default async function Home({
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
 
-  const [featuredProducts, sections] = await Promise.all([
+  const [featuredProducts, sections, siteSettings] = await Promise.all([
     listFeaturedStorefrontProducts(),
     listHomepageSections(),
+    getSiteSettings(),
   ]);
   const hero = sections.find((section) => section.sectionKey === "hero_banner");
   const story = sections.find((section) => section.sectionKey === "brand_story");
@@ -37,7 +39,11 @@ export default async function Home({
       <BestSellerSection locale={locale} products={featuredProducts} />
       {story ? <BrandStorySection locale={locale} section={story} /> : null}
       {gifts.length ? <GiftSection locale={locale} sections={gifts} /> : null}
-      <TrustSection locale={locale} />
+      <TrustSection
+        locale={locale}
+        whatsappNumber={siteSettings.whatsappNumber}
+        whatsappMessageTemplate={siteSettings.whatsappMessageTemplate}
+      />
       {journal ? <JournalSection locale={locale} section={journal} /> : null}
     </>
   );

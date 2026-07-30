@@ -31,6 +31,7 @@ enum AnalyticsEventType {
   ADD_TO_CART
   CHECKOUT_START
   PURCHASE
+  WHATSAPP_CLICK
 }
 
 enum TrafficChannel {
@@ -66,7 +67,6 @@ enum OrderStatus {
 
 enum PaymentStatus {
   PENDING
-  PROCESSING
   PAID
   FAILED
   REFUNDED
@@ -114,6 +114,17 @@ model AdminSession {
 
   @@index([adminId])
   @@index([expiresAt])
+}
+
+model SiteSetting {
+  id                      String   @id @default("default")
+  whatsappNumber          String   @default("") @map("whatsapp_number")
+  whatsappMessageTemplate String   @default("") @map("whatsapp_message_template")
+  supportEmail            String   @default("") @map("support_email")
+  createdAt               DateTime @default(now()) @map("created_at")
+  updatedAt               DateTime @updatedAt @map("updated_at")
+
+  @@map("site_settings")
 }
 
 model Category {

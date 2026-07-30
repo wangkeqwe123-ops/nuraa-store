@@ -1,10 +1,10 @@
 "use client";
 import { useEffect } from "react"; import { usePathname } from "next/navigation";
-type EventType="PAGE_VIEW"|"PRODUCT_VIEW"|"ADD_TO_CART"|"CHECKOUT_START";
+type EventType="PAGE_VIEW"|"PRODUCT_VIEW"|"ADD_TO_CART"|"CHECKOUT_START"|"WHATSAPP_CLICK";
 const VISITOR="nuraa_visitor_id",SESSION="nuraa_session",SOURCE="nuraa_utm";
 function id(){return crypto.randomUUID()}
 function identity(){let visitor=localStorage.getItem(VISITOR);if(!visitor){visitor=id();localStorage.setItem(VISITOR,visitor)}let session:{id:string;last:number}|null=null;try{session=JSON.parse(localStorage.getItem(SESSION)??"null")}catch{}if(!session||Date.now()-session.last>30*60*1000)session={id:id(),last:Date.now()};else session.last=Date.now();localStorage.setItem(SESSION,JSON.stringify(session));return{visitorId:visitor,sessionId:session.id}}
 function attribution(){const query=new URLSearchParams(window.location.search);const incoming={utmSource:query.get("utm_source"),utmMedium:query.get("utm_medium"),utmCampaign:query.get("utm_campaign"),utmContent:query.get("utm_content")};if(incoming.utmSource){localStorage.setItem(SOURCE,JSON.stringify(incoming));return incoming}try{return JSON.parse(localStorage.getItem(SOURCE)??"null")??{utmSource:"direct"}}catch{return{utmSource:"direct"}}}
 export function getStorefrontAnalyticsContext(){return{...identity(),...attribution()}}
-export async function trackStorefrontEvent(eventType:EventType,productId?:string,productSlug?:string){await fetch("/api/analytics/track",{method:"POST",headers:{"content-type":"application/json"},keepalive:true,body:JSON.stringify({...getStorefrontAnalyticsContext(),eventType,productId,productSlug,path:window.location.pathname,referrer:document.referrer||null})})}
+export async function trackStorefrontEvent(eventType:EventType,productId?:string,productSlug?:string,source?:string){await fetch("/api/analytics/track",{method:"POST",headers:{"content-type":"application/json"},keepalive:true,body:JSON.stringify({...getStorefrontAnalyticsContext(),eventType,productId,productSlug,source,path:window.location.pathname,referrer:document.referrer||null})})}
 export function AnalyticsTracker({eventType="PAGE_VIEW",productId}:{eventType?:EventType;productId?:string}){const pathname=usePathname();useEffect(()=>{void trackStorefrontEvent(eventType,productId);const match=pathname.match(/^\/(?:en|ar)\/products\/([^/]+)$/);if(eventType==="PAGE_VIEW"&&match)void trackStorefrontEvent("PRODUCT_VIEW",undefined,decodeURIComponent(match[1]))},[pathname,eventType,productId]);return null}

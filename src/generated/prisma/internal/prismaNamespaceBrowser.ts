@@ -53,6 +53,7 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   AdminUser: 'AdminUser',
   AdminSession: 'AdminSession',
+  SiteSetting: 'SiteSetting',
   Category: 'Category',
   CategoryTranslation: 'CategoryTranslation',
   Product: 'Product',
@@ -112,6 +113,18 @@ export const AdminSessionScalarFieldEnum = {
 } as const
 
 export type AdminSessionScalarFieldEnum = (typeof AdminSessionScalarFieldEnum)[keyof typeof AdminSessionScalarFieldEnum]
+
+
+export const SiteSettingScalarFieldEnum = {
+  id: 'id',
+  whatsappNumber: 'whatsappNumber',
+  whatsappMessageTemplate: 'whatsappMessageTemplate',
+  supportEmail: 'supportEmail',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SiteSettingScalarFieldEnum = (typeof SiteSettingScalarFieldEnum)[keyof typeof SiteSettingScalarFieldEnum]
 
 
 export const CategoryScalarFieldEnum = {

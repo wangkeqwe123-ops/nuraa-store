@@ -10,6 +10,7 @@
  */
 export type * from './models/AdminUser'
 export type * from './models/AdminSession'
+export type * from './models/SiteSetting'
 export type * from './models/Category'
 export type * from './models/CategoryTranslation'
 export type * from './models/Product'

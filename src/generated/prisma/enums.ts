@@ -41,7 +41,8 @@ export const AnalyticsEventType = {
   PRODUCT_VIEW: 'PRODUCT_VIEW',
   ADD_TO_CART: 'ADD_TO_CART',
   CHECKOUT_START: 'CHECKOUT_START',
-  PURCHASE: 'PURCHASE'
+  PURCHASE: 'PURCHASE',
+  WHATSAPP_CLICK: 'WHATSAPP_CLICK'
 } as const
 
 export type AnalyticsEventType = (typeof AnalyticsEventType)[keyof typeof AnalyticsEventType]
@@ -95,7 +96,6 @@ export type OrderStatus = (typeof OrderStatus)[keyof typeof OrderStatus]
 
 export const PaymentStatus = {
   PENDING: 'PENDING',
-  PROCESSING: 'PROCESSING',
   PAID: 'PAID',
   FAILED: 'FAILED',
   REFUNDED: 'REFUNDED'

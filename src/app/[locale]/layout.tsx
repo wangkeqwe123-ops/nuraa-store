@@ -2,10 +2,12 @@ import { notFound } from "next/navigation";
 import { AnalyticsTracker } from "@/components/analytics/analytics-tracker";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { WhatsAppFloatingButton } from "@/components/whatsapp/whatsapp-floating-button";
 import {
   getHomepageSection,
   localizeHomepageSection,
 } from "@/features/homepage/homepage.repository";
+import { getSiteSettings } from "@/features/site-settings/site-settings.repository";
 import { isLocale } from "@/i18n/config";
 
 // Header announcement and footer brand content are operator-managed CMS data.
@@ -26,9 +28,10 @@ export default async function LocaleLayout({
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
 
-  const [announcementSection, footerSection] = await Promise.all([
+  const [announcementSection, footerSection, siteSettings] = await Promise.all([
     getHomepageSection("announcement_bar"),
     getHomepageSection("footer_brand"),
+    getSiteSettings(),
   ]);
   const announcement = announcementSection?.status === "ACTIVE"
     ? localizeHomepageSection(announcementSection, locale)
@@ -51,6 +54,7 @@ export default async function LocaleLayout({
       <main id="main-content">{children}</main>
       <SiteFooter
         locale={locale}
+        supportEmail={siteSettings.supportEmail}
         brand={footerBrand ? {
           name: footerBrand.title,
           description: footerBrand.subtitle,
@@ -58,6 +62,17 @@ export default async function LocaleLayout({
           ctaLink: footerBrand.ctaLink,
         } : null}
       />
+      {siteSettings.whatsappEnabled ? (
+        <WhatsAppFloatingButton
+          locale={locale}
+          phone={siteSettings.whatsappNumber}
+          message={
+            locale === "ar"
+              ? "مرحباً نورا، أود معرفة المزيد عن عطوركم."
+              : siteSettings.whatsappMessageTemplate
+          }
+        />
+      ) : null}
     </div>
   );
 }

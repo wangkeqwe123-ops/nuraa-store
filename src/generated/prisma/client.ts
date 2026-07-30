@@ -52,6 +52,11 @@ export type AdminUser = Prisma.AdminUserModel
  */
 export type AdminSession = Prisma.AdminSessionModel
 /**
+ * Model SiteSetting
+ * 
+ */
+export type SiteSetting = Prisma.SiteSettingModel
+/**
  * Model Category
  * 
  */

@@ -8,6 +8,7 @@ import {
   Check,
   Loader2,
   LockKeyhole,
+  MessageCircle,
   PackageCheck,
   Truck,
 } from "lucide-react";
@@ -20,6 +21,7 @@ import {
   trackStorefrontEvent,
 } from "@/components/analytics/analytics-tracker";
 import type { Locale } from "@/i18n/config";
+import { WhatsAppLink } from "@/components/whatsapp/whatsapp-link";
 
 type Cart = {
   itemCount: number;
@@ -40,11 +42,15 @@ export function CheckoutPage({
   shippingFee,
   freeShippingThreshold,
   taxRate,
+  whatsappNumber,
+  whatsappMessageTemplate,
 }: {
   locale: Locale;
   shippingFee: number;
   freeShippingThreshold: number;
   taxRate: number;
+  whatsappNumber: string;
+  whatsappMessageTemplate: string;
 }) {
   const [cart, setCart] = useState<Cart | null>(null);
   const [pending, setPending] = useState(false);
@@ -129,6 +135,17 @@ export function CheckoutPage({
         loadError: "We could not load your bag. Please try again.",
         checkoutError:
           "We could not create your order. Review your details and try again.",
+      };
+  const whatsappCopy = isArabic
+    ? {
+        title: "هل تحتاج إلى مساعدة لإتمام طلبك؟",
+        action: "تواصل مع نورا",
+        message: "مرحباً نورا، أحتاج إلى مساعدة لإتمام طلبي.",
+      }
+    : {
+        title: "Need help placing your order?",
+        action: "Chat with NURAA",
+        message: `${whatsappMessageTemplate}\n\nI need help placing my order.`,
       };
 
   useEffect(() => {
@@ -468,6 +485,24 @@ export function CheckoutPage({
               />
               {copy.secure}
             </p>
+            {whatsappNumber ? (
+              <div className="mt-6 border-t border-black/12 pt-6 text-center">
+                <p className="text-sm font-medium text-[#17251f]">
+                  {whatsappCopy.title}
+                </p>
+                <WhatsAppLink
+                  phone={whatsappNumber}
+                  message={whatsappCopy.message}
+                  includeCurrentUrl
+                  source="checkout_help"
+                  ariaLabel={whatsappCopy.action}
+                  className="mt-3 inline-flex min-h-12 w-full items-center justify-center gap-2 border border-[#17251f] bg-transparent px-4 text-sm font-semibold text-[#17251f] transition-colors hover:bg-[#17251f] hover:text-white"
+                >
+                  <MessageCircle className="size-4" aria-hidden="true" />
+                  {whatsappCopy.action}
+                </WhatsAppLink>
+              </div>
+            ) : null}
           </aside>
         </form>
       </section>
