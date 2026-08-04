@@ -5,6 +5,7 @@ import Link from "next/link";
 import { MessageCircle, Minus, Plus } from "lucide-react";
 import { trackStorefrontEvent } from "@/components/analytics/analytics-tracker";
 import { Button } from "@/components/ui/button";
+import { WhatsAppConfigNotice } from "@/components/whatsapp/whatsapp-config-notice";
 import { WhatsAppLink } from "@/components/whatsapp/whatsapp-link";
 
 export function ProductPurchasePanel({
@@ -16,6 +17,7 @@ export function ProductPurchasePanel({
   locale,
   whatsappNumber,
   whatsappMessageTemplate,
+  showWhatsAppConfigHint = false,
 }: {
   productId: string;
   productName: string;
@@ -25,6 +27,7 @@ export function ProductPurchasePanel({
   locale: "en" | "ar";
   whatsappNumber: string;
   whatsappMessageTemplate: string;
+  showWhatsAppConfigHint?: boolean;
 }) {
   const [quantity, setQuantity] = useState(1);
   const [message, setMessage] = useState("");
@@ -139,6 +142,8 @@ export function ProductPurchasePanel({
           <MessageCircle className="size-4" aria-hidden="true" />
           {labels.whatsapp}
         </WhatsAppLink>
+      ) : showWhatsAppConfigHint ? (
+        <WhatsAppConfigNotice locale={locale} />
       ) : null}
 
       {message ? (

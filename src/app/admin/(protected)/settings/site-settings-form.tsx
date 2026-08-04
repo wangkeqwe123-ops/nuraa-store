@@ -61,7 +61,9 @@ export function SiteSettingsForm({
               className="mt-2 h-11"
             />
             <p id="whatsapp-number-help" className="mt-2 text-xs leading-5 text-muted-foreground">
-              Use international format without spaces. Leave blank to hide all WhatsApp buttons.
+              Use international format without spaces. Leaving this blank
+              hides WhatsApp buttons in production and shows a setup notice
+              during local development.
             </p>
             <FieldError errors={state.fieldErrors?.whatsappNumber} />
           </div>

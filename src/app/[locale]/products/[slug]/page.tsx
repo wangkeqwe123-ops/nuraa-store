@@ -100,6 +100,10 @@ export default async function ProductPage({ params }: { params: Promise<{ locale
               locale={locale}
               whatsappNumber={siteSettings.whatsappNumber}
               whatsappMessageTemplate={siteSettings.whatsappMessageTemplate}
+              showWhatsAppConfigHint={
+                process.env.NODE_ENV !== "production"
+                && !siteSettings.whatsappEnabled
+              }
             />
           </div>
         </div>

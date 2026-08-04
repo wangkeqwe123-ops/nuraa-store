@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { AnalyticsTracker } from "@/components/analytics/analytics-tracker";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { WhatsAppConfigNotice } from "@/components/whatsapp/whatsapp-config-notice";
 import { WhatsAppFloatingButton } from "@/components/whatsapp/whatsapp-floating-button";
 import {
   getHomepageSection,
@@ -72,6 +73,8 @@ export default async function LocaleLayout({
               : siteSettings.whatsappMessageTemplate
           }
         />
+      ) : process.env.NODE_ENV !== "production" ? (
+        <WhatsAppConfigNotice locale={locale} floating />
       ) : null}
     </div>
   );
